@@ -1,4 +1,4 @@
-#	%@ == la cible
+#	$@ == la cible
 #	$< == premiere dependance
 #	$^ == toutes les dependances
 
@@ -10,37 +10,37 @@ LIBFT			=	Libft/libft.a
 
 LIBFT_DIR		=	Libft
 
-SRCS			=	./srcs/cub3d.c \
+SRCS			=	./srcs/cub3d.c
 
-OBJS			=	${SRCS:.c=.o}
+OBJS			=	$(SRCS:.c=.o)
 
-${RM}			= 	rm -rf
+RM				= 	rm -rf
 
-INC_PATH		= 	-I./incudes
+INC_PATH		= 	-I./includes
 
 CC      		=   gcc
 
-CFLAGS       	=   -Wall -Wextra -Werror
+CFLAGS       	=   -Wall -Wextra -Werror -g
 
-LIBS			=	-lmlx -framework OpenGL -framework AppKit ${LIBFT}
+LIBS			=	-lmlx -framework OpenGL -framework AppKit -L./libft -lft
 
-all:			${LIBFT} ${NAME}
+all:			$(LIBFT) $(NAME)
 
-${NAME}:		 ${OBJS} 
-					${CC} ${CFLAGS} -o $@ $^ ${LIBFT}
+$(NAME):		 $(OBJS) 
+					$(CC) ${CFLAGS} $^ ${LIBS} -o $@
 
 %.o:			%.c	
-				${CC} ${CFLAGS} -c -o $@ $<
+				$(CC) $(CFLAGS) -c $< -o $@ 
 
-${LIBFT}:
-				make every -C ${LIBFT_DIR}
+$(LIBFT)	:
+				make every -C $(LIBFT_DIR)
 
 clean:
-				make clean -C ${LIBFT_DIR}
-				${RM} ${OBJS}
+				make clean -C $(LIBFT_DIR)
+				$(RM) $(OBJS)
 
 fclean:			clean
-				make fclean -C ${LIBFT_DIR}
-				${RM} ${NAME}
+				make fclean -C $(LIBFT_DIR)
+				$(RM) $(NAME)
 
 re:				fclean all
