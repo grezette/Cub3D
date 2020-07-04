@@ -105,10 +105,10 @@ void		ft_pars_file(t_cub *cub, char *file)
 			ft_exit_error("Parsing: 'Get_Next_Line' failed\n", NULL, cub, fd);
 		if (*line)
 			if (ft_pars_affect(cub, line))
-				ft_exit_error("Parsing: 'ft_pars_affect' failed\n", line, cub, fd);
+				ft_exit_error("Pars: 'ft_pars_affect' fail\n", line, cub, fd);
 		free(line);
 		if (ft_is_parsing_finished(cub))
-			break;
+			break ;
 	}
 	if (ft_is_parsing_ok(cub))
 		ft_exit_error("Parsing: 'ft_is_parsing_ok' failed\n", NULL, cub, fd);

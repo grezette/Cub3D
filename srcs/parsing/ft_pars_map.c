@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 /*segfault si tab == NULL*/
+/*faut supprimer ce commit pour la norm*/
 static char	**ft_square_free(char **tab)
 {
 	int i;
@@ -15,11 +16,11 @@ static char	**ft_square_free(char **tab)
 
 static char	**ft_square_strjoin(char **tab, char *str)
 {
-	char **ret;
+	char	**ret;
 	int		i;
 
 	i = 0;
-	while(tab && tab[i])
+	while (tab && tab[i])
 		i++;
 	if (!(ret = (char **)malloc(sizeof(char *) * (i + 2))))
 		return (NULL);
@@ -28,8 +29,9 @@ static char	**ft_square_strjoin(char **tab, char *str)
 		if (!(ret[i] = ft_strdup(tab[i])))
 			return (ft_square_free(ret));
 	i = (i < 0) ? 0 : i;
-	if (!(ret[i] = ft_strdup(str)))
-		return (ft_square_free(ret));
+	if (str)
+		if (!(ret[i] = ft_strdup(str)))
+			return (ft_square_free(ret));
 	ret[i + 1] = NULL;
 	return (ret);
 }
@@ -50,8 +52,8 @@ static int	ft_check_char_map(char **map)
 			if ((map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' ||
 					map[i][j] == 'W') && bol)
 				return (-1);
-			else if ((map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' ||
-					map[i][j] == 'W') && !bol)
+			else if ((map[i][j] == 'N' || map[i][j] == 'S' ||
+						map[i][j] == 'E' || map[i][j] == 'W') && !bol)
 				bol = 1;
 			else if (map[i][j] != 'N' && map[i][j] != 'S' && map[i][j] != 'E' &&
 					map[i][j] != 'W' && map[i][j] != ' ' && map[i][j] != '0' &&
@@ -61,6 +63,53 @@ static int	ft_check_char_map(char **map)
 		}
 	}
 	return (0);
+}
+
+/*voir pk ca segfault*/
+void	flood_fill(char **map, int x, int y, t_cub *cub)
+{
+	map[y][x] = 1;
+	write(1, "a", 1);
+	if (!map[y][x + 1] || !map[y + 1] || x - 1 < 0 || y - 1 < 0)
+	{
+		ft_square_free(map);
+		ft_exit_error("Map not closed", NULL, cub, 0);
+	}
+	else if (map[y][x + 1] != 1)
+		flood_fill(map, y, x + 1, cub);
+	else if (map[y][x - 1] != 1)
+		flood_fill(map, y, x - 1, cub);
+	else if (map[y + 1][x] != 1)
+		flood_fill(map, y + 1, x, cub);
+	else if (map[y - 1][x] != 1)
+		flood_fill(map, y - 1, x, cub);
+}
+
+void		ft_pars_map2(t_cub *cub)
+{
+	int		x;
+	int		y;
+	char	**map;
+
+	y = 0;
+	x = 0;
+	map = NULL;
+	if (!(map = ft_square_strjoin(cub->map, NULL)))
+		ft_exit_error("Square_strjoin failed", NULL, cub, 0);
+	while (map[y] && map[y][x] != 'N' && map[y][x] != 'W' && map[y][x] != 'E' &&
+			map[y][x] != 'S')
+	{
+		x = 0;
+		while (map[y][x] && map[y][x] != 'N' && map[y][x] != 'W' && map[y][x] != 'E' &&
+			map[y][x] != 'S')
+				x++;
+		if (map[y][x] == 'N' || map[y][x] == 'W' || map[y][x] == 'E' || map[y][x] == 'S')
+			break ;
+		y++;
+	}
+	write(1, "a", 1);
+	flood_fill(map, x, y, cub);
+	write(1, "a", 1);
 }
 
 void		ft_pars_map(t_cub *cub, int fd)
@@ -79,6 +128,10 @@ void		ft_pars_map(t_cub *cub, int fd)
 		cub->map = tmp;
 		free(line);
 	}
+	if (close(fd) == -1)
+		ft_exit_error("'Close' failed", NULL, cub, 0);
 	if (ft_check_char_map(cub->map))
-		ft_exit_error("Parsing: Wrong char in map", NULL, cub, fd);
+		ft_exit_error("Parsing: Wrong char in map", NULL, cub, 0);
+	ft_pars_map2(cub);
 }
+

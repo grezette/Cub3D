@@ -15,7 +15,7 @@ int		ft_is_parsing_finished(t_cub *cub)
 int		ft_is_parsing_ok(t_cub *cub)
 {
 	if (!ft_is_parsing_finished(cub))
-		return(-1);
+		return (-1);
 	if (cub->floor.red > 255 || cub->floor.green > 255 ||
 			cub->floor.blue > 255 || cub->ceiling.red > 255 ||
 			cub->ceiling.green > 255 || cub->ceiling.blue > 255)
