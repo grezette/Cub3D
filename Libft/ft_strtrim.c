@@ -35,7 +35,7 @@ static int	trim_len(char const *s1, char const *set)
 	end = ft_strlen(s1) - 1;
 	while (!(is_set(s1[begin], set)) && s1[begin])
 		begin++;
-	while (!(is_set(s1[end], set)) && end >= 0)
+	while (!(is_set(s1[end], set)) && end > 0)
 		end--;
 	return (end - begin + 1);
 }

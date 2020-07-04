@@ -6,7 +6,7 @@
 #    By: grezette <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/10 10:19:29 by grezette          #+#    #+#              #
-#    Updated: 2020/01/26 18:17:16 by grezette         ###   ########.fr        #
+#    Updated: 2020/01/26 13:41:25 by grezette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,8 @@ SRCS_BONUS	=	ft_lstnew.c \
 				ft_lstmap.c \
 
 SRCS_EVERY	=	get_next_line.c \
+				ft_power.c \
+				ft_atof.c \
 
 OBJS		=	$(SRCS:.c=.o)
 

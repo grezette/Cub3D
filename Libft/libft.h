@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
 # include <string.h>
 
 # ifndef BUFFER_SIZE
@@ -80,5 +81,7 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 					void (*del)(void *));
 
 int					get_next_line(int fd, char **line);
+float				ft_power(float nb, int power);
+float				ft_atof(char *str);
 
 #endif

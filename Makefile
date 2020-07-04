@@ -10,13 +10,18 @@ LIBFT			=	Libft/libft.a
 
 LIBFT_DIR		=	Libft
 
-SRCS			=	./srcs/cub3d.c
+SRCS			=	./srcs/cub3d.c \
+					./srcs/cub3d_utils.c \
+					./srcs/parsing/ft_pars_file.c \
+					./srcs/parsing/parsing_utils.c \
+					./srcs/parsing/ft_pars_map.c \
+					./srcs/parsing/printf_parsing.c \
 
 OBJS			=	$(SRCS:.c=.o)
 
 RM				= 	rm -rf
 
-INC_PATH		= 	-I./includes
+INC_PATH		= 	-I./include
 
 CC      		=   gcc
 
