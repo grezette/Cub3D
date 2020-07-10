@@ -16,6 +16,7 @@ typedef struct	s_color
 
 typedef struct	s_cub
 {
+		/*.cub info*/
 		t_coord reso;
 		char	*n_txtr;
 		char	*s_txtr;
@@ -26,6 +27,17 @@ typedef struct	s_cub
 		t_color	ceiling;
 		char	**map;
 
+		/*mlx info*/
+		void	*mlx_ptr;
+		void	*win_ptr;
+		char	key[6];
+
+		/*img info*/
+		void	*img_ptr;
+		unsigned char		*data;
+		int		size_l;
+		int		bpp;
+		int		endian;
 }				t_cub;
 
 #endif

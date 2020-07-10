@@ -2,6 +2,8 @@
 
 static int	ft_pars_color(t_color *color, char *line)
 {
+	if (color->red != -1)
+		return (-1);
 	color->red = 0;
 	line++;
 	while ((*line > 9 && *line < 13) || *line == ' ')

@@ -35,3 +35,11 @@ void	ft_check_param(int ac, char **av)
 	if (ac == 3 && ft_strncmp(av[2], "--save", 7))
 		ft_exit_error("Did you mean '--save'?\n", NULL, NULL, 0);
 }
+
+void	ft_minilibx_init(t_cub *cub)
+{
+	cub->mlx_ptr = mlx_init();
+	cub->win_ptr = mlx_new_window(cub->mlx_ptr, cub->reso.x, cub->reso.y, "Cub3D");
+	cub->img_ptr = mlx_new_image(cub->mlx_ptr, cub->reso.x, cub->reso.y);
+	cub->data = mlx_get_data_addr(cub->img_ptr, &(cub->bpp), &(cub->size_l), &(cub->endian));
+}

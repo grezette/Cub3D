@@ -1,19 +1,6 @@
 #include "../../include/cub3d.h"
 #include <stdio.h>
 
-/*segfault si tab == NULL*/
-/*faut supprimer ce commit pour la norm*/
-static char	**ft_square_free(char **tab)
-{
-	int i;
-
-	i = -1;
-	while (tab[++i])
-		free(tab[i]);
-	free(tab);
-	return (NULL);
-}
-
 static char	**ft_square_strjoin(char **tab, char *str)
 {
 	char	**ret;
@@ -65,27 +52,28 @@ static int	ft_check_char_map(char **map)
 	return (0);
 }
 
-/*voir pk ca segfault*/
-void	flood_fill(char **map, int x, int y, t_cub *cub)
+static void	flood_fill(char **map, int x, int y, t_cub *cub)
 {
-	map[y][x] = 1;
-	write(1, "a", 1);
-	if (!map[y][x + 1] || !map[y + 1] || x - 1 < 0 || y - 1 < 0)
+	map[y][x] = '1';
+	if (!map[y][x + 1] || !map[y + 1] || x - 1 < 0 || y - 1 < 0 ||
+			(int)ft_strlen(map[y + 1]) < x || (int)ft_strlen(map[y - 1]) < x ||
+			ft_isspace(map[y][x + 1]) || ft_isspace(map[y][x - 1]) ||
+			ft_isspace(map[y][y + 1]) || ft_isspace(map[y][y - 1]))
 	{
 		ft_square_free(map);
-		ft_exit_error("Map not closed", NULL, cub, 0);
+		ft_exit_error("Map not closed\n", NULL, cub, 0);
 	}
-	else if (map[y][x + 1] != 1)
-		flood_fill(map, y, x + 1, cub);
-	else if (map[y][x - 1] != 1)
-		flood_fill(map, y, x - 1, cub);
-	else if (map[y + 1][x] != 1)
-		flood_fill(map, y + 1, x, cub);
-	else if (map[y - 1][x] != 1)
-		flood_fill(map, y - 1, x, cub);
+	else if (map[y][x + 1] != '1')
+		flood_fill(map, x + 1, y, cub);
+	else if (map[y][x - 1] != '1')
+		flood_fill(map, x - 1, y, cub);
+	else if (map[y + 1][x] != '1')
+		flood_fill(map, x, y + 1, cub);
+	else if (map[y - 1][x] != '1')
+		flood_fill(map, x, y - 1, cub);
 }
 
-void		ft_pars_map2(t_cub *cub)
+static void	ft_pars_map2(t_cub *cub)
 {
 	int		x;
 	int		y;
@@ -107,9 +95,39 @@ void		ft_pars_map2(t_cub *cub)
 			break ;
 		y++;
 	}
-	write(1, "a", 1);
 	flood_fill(map, x, y, cub);
-	write(1, "a", 1);
+	ft_square_free(map);
+}
+
+char		**ft_adjust_map(char **map)
+{
+	char	**str;
+	int 	i;
+	int		j;
+	int 	k;
+
+	i = 0;
+	k = 0;
+	if (!(str = (char **)malloc(sizeof(char *) * (ft_minimap_good_size(map) + 1))))
+		return (NULL);
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j] && ft_isspace(map[i][j]))
+			j++;
+		if (map[i][j])
+			break ;
+		i++;
+	}
+	while (k <= ft_minimap_good_size(map))
+	{
+		if (!(str[k] = ft_strdup(map[i])))
+			return (ft_square_free(str));
+		k++;
+		i++;
+	}
+	str[k] = NULL;
+	return (str);
 }
 
 void		ft_pars_map(t_cub *cub, int fd)
@@ -133,5 +151,6 @@ void		ft_pars_map(t_cub *cub, int fd)
 	if (ft_check_char_map(cub->map))
 		ft_exit_error("Parsing: Wrong char in map", NULL, cub, 0);
 	ft_pars_map2(cub);
+	if (!(cub->map = ft_adjust_map(cub->map)))
+		ft_exit_error("Parsing: adjust_map failed", NULL, cub, 0);
 }
-
