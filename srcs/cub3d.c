@@ -7,6 +7,6 @@ int		main(int ac, char **av)
 	ft_check_param(ac, av);
 	ft_pars_file(&cub, av[1]);
 	ft_minilibx_init(&cub);
-	ft_minimap(&cub);
+	ft_raytracer(&cub);
 	return (0);
 }

@@ -68,6 +68,9 @@ void	ft_wright_minimap(t_cub *cub, int x, int y, t_color col)
 
 /*penser à rajouter un bail qui déclare les couleur direct genre:*/
    /*	'int wight; wight.red = 255, wight.green = 255, etc...*/
+
+/*
+
 void	ft_minimap(t_cub *cub)
 {
 	int x;
@@ -93,3 +96,5 @@ void	ft_minimap(t_cub *cub)
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img_ptr, 0, 0);
 	mlx_loop(cub->mlx_ptr);
 }
+
+*/

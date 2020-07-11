@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 16:13:36 by grezette          #+#    #+#             */
-/*   Updated: 2020/01/26 16:53:39 by grezette         ###   ########.fr       */
+/*   Updated: 2020/07/11 22:54:43 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,5 @@ int		ft_minimap_good_size(char **map);
 /*print_parsing*/
 void	ft_print_parsing(t_cub *cub);
 
+void	ft_raytracer(t_cub *cub);
 #endif

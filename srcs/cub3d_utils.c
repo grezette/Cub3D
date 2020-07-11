@@ -26,6 +26,57 @@ void	ft_exit_error(char *msg, void *elem, t_cub *cub, int fd)
 	exit(0);
 }
 
+static t_coord	ft_guess_start_position(char **map)
+{
+	t_coord	pos;
+	int		i;
+	int		j;
+
+	i = 0;
+	while (map[++i])
+	{
+		j = 0;
+		pos.y = (double)i;
+		while (map[i][++j])
+		{
+			if (map[i][j] == 'N' || map[i][j] == 'S' ||
+					map[i][j] == 'W' || map[i][j] == 'E')
+			{
+				pos.x = (double)j;
+				return (pos);
+			}
+		}
+	}
+	return (pos);
+}
+
+static t_coord	ft_guess_start_direction(char **map, int x, int y)
+{
+	t_coord dir;
+
+	if (map[y][x] == 'N')
+	{
+		dir.x = 0;
+		dir.y = 1;
+	}
+	if (map[y][x] == 'S')
+	{
+		dir.x = 0;
+		dir.y = -1;
+	}
+	if (map[y][x] == 'E')
+	{
+		dir.x = 1;
+		dir.y = 0;
+	}
+	if (map[y][x] == 'N')
+	{
+		dir.x = -1;
+		dir.y = 0;
+	}
+	return (dir);
+}
+
 void	ft_check_param(int ac, char **av)
 {
 	if (ac < 2 || ac > 3)
@@ -39,7 +90,16 @@ void	ft_check_param(int ac, char **av)
 void	ft_minilibx_init(t_cub *cub)
 {
 	cub->mlx_ptr = mlx_init();
-	cub->win_ptr = mlx_new_window(cub->mlx_ptr, cub->reso.x, cub->reso.y, "Cub3D");
-	cub->img_ptr = mlx_new_image(cub->mlx_ptr, cub->reso.x, cub->reso.y);
-	cub->data = mlx_get_data_addr(cub->img_ptr, &(cub->bpp), &(cub->size_l), &(cub->endian));
+	cub->win_ptr = mlx_new_window(cub->mlx_ptr, cub->reso.x, \
+			cub->reso.y, "Cub3D");
+	cub->img_ptr = mlx_new_image(cub->mlx_ptr, cub->reso.x, \
+			cub->reso.y);
+	cub->data = mlx_get_data_addr(cub->img_ptr, &(cub->bpp), \
+			&(cub->size_l), &(cub->endian));
+	cub->pos = ft_guess_start_position(cub->map);
+	cub->dir = ft_guess_start_direction(cub->map, cub->pos.x, cub->pos.y);
+	cub->plane.x = 0;
+	cub->plane.y = 0.66;
+	cub->time = 0;
+	cub->oldtime = 0;
 }
