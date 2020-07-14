@@ -22,6 +22,11 @@
 # define WIDTH_MAX 2560
 # define HEIGHT_MAX 1440
 
+# define X11_KEY_PRESS          2
+# define X11_KEY_PRESS_M        1
+# define X11_KEY_RELEASE        3
+# define X11_KEY_RELEASE_M      2
+
 /*utils and security*/
 void	ft_check_param(int ac, char **av);
 void	ft_exit_error(char *msg, void *elem, t_cub *cub, int fd);
@@ -43,5 +48,11 @@ int		ft_minimap_good_size(char **map);
 /*print_parsing*/
 void	ft_print_parsing(t_cub *cub);
 
+/*raycasting*/
 void	ft_raytracer(t_cub *cub);
+
+/*input gathering */
+int		loop_hook(void *param);
+int		key_hook_press(int keycode, void *param);
+int		key_hook_release(int keycode, void *param);
 #endif

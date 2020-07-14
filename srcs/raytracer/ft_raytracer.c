@@ -20,9 +20,9 @@ static	void	ft_init_raytracer(t_cub *cub, int x)
 	cub->w_map.x = (int)cub->pos.x;
 	cub->w_map.y = (int)cub->pos.y;
 	cub->deltaDist.x = (cub->rayDir.x < 0) ? 1 / cub->rayDir.x * -1 : \
-					1 / cub->rayDir.x;
+					   1 / cub->rayDir.x;
 	cub->deltaDist.y = (cub->rayDir.y < 0) ? 1 / cub->rayDir.y * -1 : \
-					1 / cub->rayDir.y;
+					   1 / cub->rayDir.y;
 	cub->hit = 0;
 }
 
@@ -31,7 +31,7 @@ static	void	ft_if_raydir(t_cub *cub)
 	if (cub->rayDir.x < 0)
 	{
 		cub->step.x = -1;
-		cub->sideDist.x = (cub->w_map.x + 1.0 - cub->pos.x) * cub->deltaDist.x;
+		cub->sideDist.x = (cub->pos.x - cub->w_map.x) * cub->deltaDist.x;
 	}
 	else
 	{
@@ -41,7 +41,7 @@ static	void	ft_if_raydir(t_cub *cub)
 	if (cub->rayDir.y < 0)
 	{
 		cub->step.y = -1;
-		cub->sideDist.y = (cub->w_map.y + 1.0 - cub->pos.y) * cub->deltaDist.y;
+		cub->sideDist.y = (cub->pos.y - cub->w_map.y) * cub->deltaDist.y;
 	}
 	else
 	{
@@ -66,7 +66,7 @@ static	void	ft_rayt_dda(t_cub *cub)
 			cub->w_map.y += cub->step.y;
 			cub->side = 1;
 		}
-		if (cub->map[cub->w_map.y][cub->w_map.x] == 1)
+		if (cub->map[cub->w_map.y][cub->w_map.x] == '1')
 			cub->hit = 1;
 	}
 	/*C'est possible que se ternaire soit fucked up mdr*/
@@ -88,6 +88,7 @@ static	void	ft_rayt_height(t_cub *cub)
 void			ft_raytracer(t_cub *cub)
 {
 	int	x;
+	int i;
 
 	x = -1;
 	while (++x < cub->reso.x)
@@ -96,9 +97,14 @@ void			ft_raytracer(t_cub *cub)
 		ft_if_raydir(cub);
 		ft_rayt_dda(cub);
 		ft_rayt_height(cub);
+		i = -1;
+		while (++i < cub->drawStart)
+			cub->data[4 * x + 4 * cub->reso.x * i + 1] = (char)0;
 		cub->drawStart--;
 		while (++cub->drawStart < cub->drawEnd)
-			cub->data[4 * x + 4 * cub->reso.x * cub->drawStart] = (char)255;
+			cub->data[4 * x + 4 * cub->reso.x * cub->drawStart + 1] = (char)253;
+		while (++cub->drawStart < cub->reso.y)
+			cub->data[4 * x + 4 * cub->reso.x * cub->drawStart + 1] = (char)0;
 	}
-	mlx_loop(cub->mlx_ptr);
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img_ptr, 0, 0);
 }

@@ -10,7 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include <fcntl.h>
+#include <mlx.h>
+#include <math.h>
+#include "../../Libft/libft.h"
 #include <stdio.h>
 
 # define X11_KEY_PRESS          2
@@ -30,7 +33,6 @@ typedef struct	s_cub
 int		hook(void *param)
 {
 	(void)param;
-	write(1, ".", 1);
 	return (0);
 }
 
@@ -111,6 +113,7 @@ int		key_hook_press(int keycode, void *param)
 {
 	t_cub *var;
 
+	printf("%d\n", keycode);
 	var = (t_cub *)param;
 	if (keycode == 123)
 		var->key[0] = 1;
@@ -131,11 +134,15 @@ int		main(void)
 
 	var.x = 125;
 	var.y = 125;
-	ft_bzero(var.key, 5);
+	var.key[0] = 0;
+	var.key[1] = 0;
+	var.key[2] = 0;
+	var.key[3] = 0;
+	var.key[4] = 0;
 	var.mlx_ptr = mlx_init();
 	var.win_ptr = mlx_new_window(var.mlx_ptr, 500, 500, "mlx_ptr");
 	draw_window(&var, 200);
-	mlx_loop_hook(var.mlx_ptr, &loop_hook, &var);
+	mlx_loop_hook(var.mlx_ptr, &hook, &var);
 	mlx_hook(var.win_ptr, X11_KEY_PRESS, X11_KEY_PRESS_M, &key_hook_press, &var);
 	mlx_hook(var.win_ptr, X11_KEY_RELEASE, X11_KEY_RELEASE_M, &key_hook_release, &var);
 	mlx_loop(var.mlx_ptr);

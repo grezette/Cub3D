@@ -36,7 +36,6 @@ typedef struct	s_cub
 		/*mlx info*/
 		void	*mlx_ptr;
 		void	*win_ptr;
-		char	key[6];
 
 		/*img info*/
 		void	*img_ptr;
@@ -76,9 +75,13 @@ typedef struct	s_cub
 
 		/*Calculating height stuff*/
 		int	lineHeight;
-
 		int	drawStart;
 		int	drawEnd;
+
+		/*input stuff*/
+		int	key[8];
+		double	moveSpeed;
+		double	rotSpeed;
 }				t_cub;
 
 #endif

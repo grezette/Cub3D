@@ -57,23 +57,24 @@ static t_coord	ft_guess_start_direction(char **map, int x, int y)
 	if (map[y][x] == 'N')
 	{
 		dir.x = 0;
-		dir.y = 1;
+		dir.y = -1;
 	}
 	if (map[y][x] == 'S')
 	{
 		dir.x = 0;
-		dir.y = -1;
+		dir.y = 1;
 	}
 	if (map[y][x] == 'E')
 	{
 		dir.x = 1;
 		dir.y = 0;
 	}
-	if (map[y][x] == 'N')
+	if (map[y][x] == '0')
 	{
 		dir.x = -1;
 		dir.y = 0;
 	}
+	map[y][x] = '0';
 	return (dir);
 }
 
@@ -98,8 +99,17 @@ void	ft_minilibx_init(t_cub *cub)
 			&(cub->size_l), &(cub->endian));
 	cub->pos = ft_guess_start_position(cub->map);
 	cub->dir = ft_guess_start_direction(cub->map, cub->pos.x, cub->pos.y);
-	cub->plane.x = 0;
-	cub->plane.y = 0.66;
+	cub->plane.x = 0.5;
+	cub->plane.y = 0.5;
 	cub->time = 0;
 	cub->oldtime = 0;
+	cub->moveSpeed = 0.033 * 5.0;
+	cub->rotSpeed = 0.033 * 3.0;
+	cub->key[0] = 0;
+	cub->key[1] = 0;
+	cub->key[2] = 0;
+	cub->key[3] = 0;
+	cub->key[4] = 0;
+	cub->key[5] = 0;
+	cub->key[6] = 0;
 }
