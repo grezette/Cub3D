@@ -9,17 +9,25 @@ static void	cam_hook(t_cub *cub)
 	tmp_planeX = cub->plane.x;
 	if (cub->key[5])
 	{
-		cub->dir.x = cub->dir.x * cos(-(cub->rotSpeed)) - cub->dir.y * sin(-(cub->rotSpeed));
-		cub->dir.y = tmp_dirX * sin(-(cub->rotSpeed)) - cub->dir.y * cos(-(cub->rotSpeed));
-		cub->plane.x = cub->plane.x * cos(-(cub->rotSpeed)) - cub->plane.y * sin(-(cub->rotSpeed));
-		cub->plane.y = tmp_planeX * sin(-(cub->rotSpeed)) - cub->plane.y * cos(-(cub->rotSpeed));
+		cub->dir.x = cub->dir.x * cos(-cub->rotSpeed) - \
+					 cub->dir.y * sin(-cub->rotSpeed);
+		cub->dir.y = tmp_dirX * sin(-cub->rotSpeed) + \
+					 cub->dir.y * cos(-cub->rotSpeed);
+		cub->plane.x = cub->plane.x * cos(-cub->rotSpeed) - \
+					   cub->plane.y * sin(-cub->rotSpeed);
+		cub->plane.y = tmp_planeX * sin(-cub->rotSpeed) + \
+					   cub->plane.y * cos(-cub->rotSpeed);
 	}
 	else if (cub->key[6])
 	{
-		cub->dir.x = cub->dir.x * cos(cub->rotSpeed) - cub->dir.y * sin(cub->rotSpeed);
-		cub->dir.y = tmp_dirX * sin(cub->rotSpeed) - cub->dir.y * cos(cub->rotSpeed);
-		cub->plane.x = cub->plane.x * cos(cub->rotSpeed) - cub->plane.y * sin(cub->rotSpeed);
-		cub->plane.y = tmp_planeX * sin(cub->rotSpeed) - cub->plane.y * cos(cub->rotSpeed);
+		cub->dir.x = cub->dir.x * cos(cub->rotSpeed) - \
+					 cub->dir.y * sin(cub->rotSpeed);
+		cub->dir.y = tmp_dirX * sin(cub->rotSpeed) + \
+					 cub->dir.y * cos(cub->rotSpeed);
+		cub->plane.x = cub->plane.x * cos(cub->rotSpeed) - \
+					   cub->plane.y * sin(cub->rotSpeed);
+		cub->plane.y = tmp_planeX * sin(cub->rotSpeed) + \
+					   cub->plane.y * cos(cub->rotSpeed);
 	}
 }
 

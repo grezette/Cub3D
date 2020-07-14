@@ -99,8 +99,8 @@ void	ft_minilibx_init(t_cub *cub)
 			&(cub->size_l), &(cub->endian));
 	cub->pos = ft_guess_start_position(cub->map);
 	cub->dir = ft_guess_start_direction(cub->map, cub->pos.x, cub->pos.y);
-	cub->plane.x = 0.5;
-	cub->plane.y = 0.5;
+	cub->plane.x = 0.66;
+	cub->plane.y = 0.66;
 	cub->time = 0;
 	cub->oldtime = 0;
 	cub->moveSpeed = 0.033 * 5.0;
