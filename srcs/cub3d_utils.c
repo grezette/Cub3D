@@ -93,10 +93,10 @@ void	ft_minilibx_init(t_cub *cub)
 	cub->mlx_ptr = mlx_init();
 	cub->win_ptr = mlx_new_window(cub->mlx_ptr, cub->reso.x, \
 			cub->reso.y, "Cub3D");
-	cub->img_ptr = mlx_new_image(cub->mlx_ptr, cub->reso.x, \
+	cub->scr.img_ptr = mlx_new_image(cub->mlx_ptr, cub->reso.x, \
 			cub->reso.y);
-	cub->data = mlx_get_data_addr(cub->img_ptr, &(cub->bpp), \
-			&(cub->size_l), &(cub->endian));
+	cub->scr.data = mlx_get_data_addr(cub->scr.img_ptr, &(cub->scr.bpp), \
+			&(cub->scr.size_l), &(cub->scr.endian));
 	cub->pos = ft_guess_start_position(cub->map);
 	cub->dir = ft_guess_start_direction(cub->map, cub->pos.x, cub->pos.y);
 	cub->plane.x = 0.66;
@@ -112,4 +112,22 @@ void	ft_minilibx_init(t_cub *cub)
 	cub->key[4] = 0;
 	cub->key[5] = 0;
 	cub->key[6] = 0;
+	/*
+	if (!(cub->txtr[0].img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr,
+					cub->n_txtr, &((cub->txtr[0]).width), &(cub->txtr[0].height))))
+		ft_exit_error("North path not valid", NULL, cub, 0);
+	cub->txtr[0].data = mlx_get_data_addr(cub->txtr[0].img_ptr, &cub->txtr[0].bpp, &cub->txtr[0].size_l, &cub->txtr[0].endian);
+	if (!(cub->txtr[1].img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr,
+					cub->s_txtr, &((cub->txtr[1]).width), &(cub->txtr[1].height))))
+		ft_exit_error("South path not valid", NULL, cub, 0);
+	cub->txtr[1].data = mlx_get_data_addr(cub->txtr[1].img_ptr, &cub->txtr[1].bpp, &cub->txtr[1].size_l, &cub->txtr[1].endian);
+	if (!(cub->txtr[2].img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr,
+					cub->e_txtr, &((cub->txtr[2]).width), &(cub->txtr[2].height))))
+		ft_exit_error("East path not valid", NULL, cub, 0);
+	cub->txtr[2].data = mlx_get_data_addr(cub->txtr[2].img_ptr, &cub->txtr[2].bpp, &cub->txtr[2].size_l, &cub->txtr[2].endian);
+	if (!(cub->txtr[3].img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr,
+					cub->w_txtr, &((cub->txtr[3]).width), &(cub->txtr[3].height))))
+		ft_exit_error("West path not valid", NULL, cub, 0);
+	cub->txtr[3].data = mlx_get_data_addr(cub->txtr[3].img_ptr, &cub->txtr[3].bpp, &cub->txtr[3].size_l, &cub->txtr[3].endian);
+	*/
 }

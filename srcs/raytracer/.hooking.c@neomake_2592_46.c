@@ -37,6 +37,7 @@ int		loop_hook(void *param)
 
 	cub = (t_cub *)param;
 	ft_raytracer(cub);
+
 	if (cub->key[0])
 	{
 		if (cub->map[(int)cub->pos.y][(int)(cub->pos.x + cub->dir.x * cub->moveSpeed)] != '1')

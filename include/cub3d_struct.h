@@ -20,6 +20,17 @@ typedef struct	s_color
 		int blue;
 }				t_color;
 
+typedef	struct	s_img
+{
+		void	*img_ptr;
+		char	*data;
+		int		size_l;
+		int		bpp;
+		int		endian;
+		int		width;
+		int		height;
+}				t_img;
+
 typedef struct	s_cub
 {
 		/*.cub info*/
@@ -38,11 +49,8 @@ typedef struct	s_cub
 		void	*win_ptr;
 
 		/*img info*/
-		void	*img_ptr;
-		char		*data;
-		int		size_l;
-		int		bpp;
-		int		endian;
+		t_img		scr;
+		t_img		txtr[4];
 
 		/*player POV*/
 		t_coord	pos;
