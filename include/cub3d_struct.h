@@ -1,95 +1,92 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d_struct.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/19 14:01:42 by grezette          #+#    #+#             */
+/*   Updated: 2020/07/19 17:01:28 by grezette         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_STRUCT_H
 # define CUB3D_STRUCT_H
 
 typedef struct	s_reso
 {
-		int 	x;
-		int 	y;
+	int			x;
+	int			y;
 }				t_reso;
 
 typedef	struct	s_coord
 {
-		double	x;
-		double	y;
+	double		x;
+	double		y;
 }				t_coord;
 
 typedef struct	s_color
 {
-		int	red;
-		int	green;
-		int blue;
+	int			red;
+	int			green;
+	int			blue;
 }				t_color;
 
 typedef	struct	s_img
 {
-		void	*img_ptr;
-		char	*data;
-		int		size_l;
-		int		bpp;
-		int		endian;
-		int		width;
-		int		height;
+	void		*img_ptr;
+	char		*data;
+	int			size_l;
+	int			bpp;
+	int			endian;
+	int			width;
+	int			height;
 }				t_img;
 
 typedef struct	s_cub
 {
-		/*.cub info*/
-		t_reso	 reso;
-		char	*n_txtr;
-		char	*s_txtr;
-		char	*w_txtr;
-		char	*e_txtr;
-		char	*spt_txtr;
-		t_color	floor;
-		t_color	ceiling;
-		char	**map;
+	t_reso		reso;
+	char		*n_txtr;
+	char		*s_txtr;
+	char		*w_txtr;
+	char		*e_txtr;
+	char		*spt_txtr;
+	t_color		floor;
+	t_color		ceiling;
+	char		**map;
 
-		/*mlx info*/
-		void	*mlx_ptr;
-		void	*win_ptr;
+	void		*mlx_ptr;
+	void		*win_ptr;
 
-		/*img info*/
-		t_img		scr;
-		t_img		txtr[4];
+	t_img		scr;
+	t_img		txtr[4];
 
-		/*player POV*/
-		t_coord	pos;
-		t_coord	dir;
-		t_coord	plane;
+	t_coord		pos;
+	t_coord		dir;
+	t_coord		plane;
 
-		/*time stuff*/
-		double	time;
-		double	oldtime;
+	double		camerax;
+	t_coord		raydir;
 
-		/*ray position and direction*/
-		double	cameraX;
-		t_coord	rayDir;
+	t_reso		w_map;
 
-		/*which box of the map we're in*/
-		t_reso	w_map;
+	t_coord		sidedist;
 
-		/*lenght of ray from current position to next x or y-side*/
-		t_coord	sideDist;
+	t_coord		deltadist;
+	double		perpwalldist;
 
-		/*lenght of ray from one x or y-side to next x or y-side*/
-		t_coord	deltaDist;
-		double	perpWallDist;
+	t_reso		step;
 
-		/*what direction to step in x or y-direction (either +1 or -1)*/
-		t_reso	step;
+	int			hit;
+	int			side;
 
-		int	hit;
-		int	side;
+	int			lineheight;
+	int			drawstart;
+	int			drawend;
 
-		/*Calculating height stuff*/
-		int	lineHeight;
-		int	drawStart;
-		int	drawEnd;
-
-		/*input stuff*/
-		int	key[8];
-		double	moveSpeed;
-		double	rotSpeed;
+	int			key[8];
+	double		movespeed;
+	double		rotspeed;
 }				t_cub;
 
 #endif

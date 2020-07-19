@@ -2,32 +2,32 @@
 
 static void	cam_hook(t_cub *cub)
 {
-	double	tmp_dirX;
-	double	tmp_planeX;
+	double	tmp_dirx;
+	double	tmp_planex;
 
-	tmp_dirX = cub->dir.x;
-	tmp_planeX = cub->plane.x;
+	tmp_dirx = cub->dir.x;
+	tmp_planex = cub->plane.x;
 	if (cub->key[5])
 	{
-		cub->dir.x = cub->dir.x * cos(-cub->rotSpeed) - \
-					 cub->dir.y * sin(-cub->rotSpeed);
-		cub->dir.y = tmp_dirX * sin(-cub->rotSpeed) + \
-					 cub->dir.y * cos(-cub->rotSpeed);
-		cub->plane.x = cub->plane.x * cos(-cub->rotSpeed) - \
-					   cub->plane.y * sin(-cub->rotSpeed);
-		cub->plane.y = tmp_planeX * sin(-cub->rotSpeed) + \
-					   cub->plane.y * cos(-cub->rotSpeed);
+		cub->dir.x = cub->dir.x * cos(-cub->rotspeed) - \
+					 cub->dir.y * sin(-cub->rotspeed);
+		cub->dir.y = tmp_dirx * sin(-cub->rotspeed) + \
+					 cub->dir.y * cos(-cub->rotspeed);
+		cub->plane.x = cub->plane.x * cos(-cub->rotspeed) - \
+					   cub->plane.y * sin(-cub->rotspeed);
+		cub->plane.y = tmp_planex * sin(-cub->rotspeed) + \
+					   cub->plane.y * cos(-cub->rotspeed);
 	}
 	else if (cub->key[6])
 	{
-		cub->dir.x = cub->dir.x * cos(cub->rotSpeed) - \
-					 cub->dir.y * sin(cub->rotSpeed);
-		cub->dir.y = tmp_dirX * sin(cub->rotSpeed) + \
-					 cub->dir.y * cos(cub->rotSpeed);
-		cub->plane.x = cub->plane.x * cos(cub->rotSpeed) - \
-					   cub->plane.y * sin(cub->rotSpeed);
-		cub->plane.y = tmp_planeX * sin(cub->rotSpeed) + \
-					   cub->plane.y * cos(cub->rotSpeed);
+		cub->dir.x = cub->dir.x * cos(cub->rotspeed) - \
+					 cub->dir.y * sin(cub->rotspeed);
+		cub->dir.y = tmp_dirx * sin(cub->rotspeed) + \
+					 cub->dir.y * cos(cub->rotspeed);
+		cub->plane.x = cub->plane.x * cos(cub->rotspeed) - \
+					   cub->plane.y * sin(cub->rotspeed);
+		cub->plane.y = tmp_planex * sin(cub->rotspeed) + \
+					   cub->plane.y * cos(cub->rotspeed);
 	}
 }
 
@@ -39,31 +39,31 @@ int		loop_hook(void *param)
 	ft_raytracer(cub);
 	if (cub->key[0])
 	{
-		if (cub->map[(int)cub->pos.y][(int)(cub->pos.x + cub->dir.x * cub->moveSpeed)] != '1')
-			cub->pos.x = cub->pos.x + cub->dir.x * cub->moveSpeed;
-		if (cub->map[(int)(cub->pos.y + cub->dir.y * cub->moveSpeed)][(int)cub->pos.x] != '1')
-			cub->pos.y = cub->pos.y + cub->dir.y * cub->moveSpeed;
+		if (cub->map[(int)cub->pos.y][(int)(cub->pos.x + cub->dir.x * cub->movespeed)] != '1')
+			cub->pos.x = cub->pos.x + cub->dir.x * cub->movespeed;
+		if (cub->map[(int)(cub->pos.y + cub->dir.y * cub->movespeed)][(int)cub->pos.x] != '1')
+			cub->pos.y = cub->pos.y + cub->dir.y * cub->movespeed;
 	}
 	if (cub->key[1])
 	{
-		if (cub->map[(int)cub->pos.y][(int)(cub->pos.x + cub->dir.y * cub->moveSpeed / 2)] != '1')
-			cub->pos.x = cub->pos.x + cub->dir.y * cub->moveSpeed / 2;
-		if (cub->map[(int)(cub->pos.y - cub->dir.x * cub->moveSpeed / 2)][(int)cub->pos.x] != '1')
-			cub->pos.y = cub->pos.y - cub->dir.x * cub->moveSpeed / 2;
+		if (cub->map[(int)cub->pos.y][(int)(cub->pos.x + cub->dir.y * cub->movespeed / 2)] != '1')
+			cub->pos.x = cub->pos.x + cub->dir.y * cub->movespeed / 2;
+		if (cub->map[(int)(cub->pos.y - cub->dir.x * cub->movespeed / 2)][(int)cub->pos.x] != '1')
+			cub->pos.y = cub->pos.y - cub->dir.x * cub->movespeed / 2;
 	}
 	if (cub->key[2])
 	{
-		if (cub->map[(int)cub->pos.y][(int)(cub->pos.x - cub->dir.x * cub->moveSpeed)] != '1')
-			cub->pos.x = cub->pos.x - cub->dir.x * cub->moveSpeed;
-		if (cub->map[(int)(cub->pos.y - cub->dir.y * cub->moveSpeed)][(int)cub->pos.x] != '1')
-			cub->pos.y = cub->pos.y - cub->dir.y * cub->moveSpeed;
+		if (cub->map[(int)cub->pos.y][(int)(cub->pos.x - cub->dir.x * cub->movespeed)] != '1')
+			cub->pos.x = cub->pos.x - cub->dir.x * cub->movespeed;
+		if (cub->map[(int)(cub->pos.y - cub->dir.y * cub->movespeed)][(int)cub->pos.x] != '1')
+			cub->pos.y = cub->pos.y - cub->dir.y * cub->movespeed;
 	}
 	if (cub->key[3])
 	{
-		if (cub->map[(int)cub->pos.y][(int)(cub->pos.x - cub->dir.y * cub->moveSpeed / 2)] != '1')
-			cub->pos.x = cub->pos.x - cub->dir.y * cub->moveSpeed / 2;
-		if (cub->map[(int)(cub->pos.y + cub->dir.x * cub->moveSpeed / 2)][(int)cub->pos.x] != '1')
-			cub->pos.y = cub->pos.y + cub->dir.x * cub->moveSpeed / 2;
+		if (cub->map[(int)cub->pos.y][(int)(cub->pos.x - cub->dir.y * cub->movespeed / 2)] != '1')
+			cub->pos.x = cub->pos.x - cub->dir.y * cub->movespeed / 2;
+		if (cub->map[(int)(cub->pos.y + cub->dir.x * cub->movespeed / 2)][(int)cub->pos.x] != '1')
+			cub->pos.y = cub->pos.y + cub->dir.x * cub->movespeed / 2;
 	}
 	if (cub->key[4])
 		ft_exit_error("No just kidding\n", NULL, cub, 0);

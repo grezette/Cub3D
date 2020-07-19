@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/19 15:01:14 by grezette          #+#    #+#             */
+/*   Updated: 2020/07/19 17:01:24 by grezette         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
-void	ft_exit_error(char *msg, void *elem, t_cub *cub, int fd)
+void			ft_exit_error(char *msg, void *elem, t_cub *cub, int fd)
 {
 	int i;
 
@@ -78,7 +90,7 @@ static t_coord	ft_guess_start_direction(char **map, int x, int y)
 	return (dir);
 }
 
-void	ft_check_param(int ac, char **av)
+void			ft_check_param(int ac, char **av)
 {
 	if (ac < 2 || ac > 3)
 		ft_exit_error("Wrong numer of argument\n", NULL, NULL, 0);
@@ -88,7 +100,7 @@ void	ft_check_param(int ac, char **av)
 		ft_exit_error("Did you mean '--save'?\n", NULL, NULL, 0);
 }
 
-void	ft_minilibx_init(t_cub *cub)
+void			ft_minilibx_init(t_cub *cub)
 {
 	cub->mlx_ptr = mlx_init();
 	cub->win_ptr = mlx_new_window(cub->mlx_ptr, cub->reso.x, \
@@ -101,10 +113,8 @@ void	ft_minilibx_init(t_cub *cub)
 	cub->dir = ft_guess_start_direction(cub->map, cub->pos.x, cub->pos.y);
 	cub->plane.x = 0.66;
 	cub->plane.y = 0.66;
-	cub->time = 0;
-	cub->oldtime = 0;
-	cub->moveSpeed = 0.033 * 5.0;
-	cub->rotSpeed = 0.033 * 3.0;
+	cub->movespeed = 0.033 * 5.0;
+	cub->rotspeed = 0.033 * 3.0;
 	cub->key[0] = 0;
 	cub->key[1] = 0;
 	cub->key[2] = 0;
@@ -112,7 +122,22 @@ void	ft_minilibx_init(t_cub *cub)
 	cub->key[4] = 0;
 	cub->key[5] = 0;
 	cub->key[6] = 0;
-	/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	if (!(cub->txtr[0].img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr,
 					cub->n_txtr, &((cub->txtr[0]).width), &(cub->txtr[0].height))))
 		ft_exit_error("North path not valid", NULL, cub, 0);
@@ -129,5 +154,13 @@ void	ft_minilibx_init(t_cub *cub)
 					cub->w_txtr, &((cub->txtr[3]).width), &(cub->txtr[3].height))))
 		ft_exit_error("West path not valid", NULL, cub, 0);
 	cub->txtr[3].data = mlx_get_data_addr(cub->txtr[3].img_ptr, &cub->txtr[3].bpp, &cub->txtr[3].size_l, &cub->txtr[3].endian);
-	*/
 }
+
+
+
+
+
+
+
+
+
