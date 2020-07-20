@@ -6,13 +6,23 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 15:00:08 by grezette          #+#    #+#             */
-/*   Updated: 2020/07/19 15:00:10 by grezette         ###   ########.fr       */
+/*   Updated: 2020/07/20 16:58:02 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int		main(int ac, char **av)
+static void	ft_check_param(int ac, char **av)
+{
+	if (ac < 2 || ac > 3)
+		ft_exit_error("Wrong numer of argument\n", NULL, NULL, 0);
+	if (ft_strncmp(&(av[1][ft_strlen(av[1]) - 4]), ".cub", 5))
+		ft_exit_error("File is not a '.cub'\n", NULL, NULL, 0);
+	if (ac == 3 && ft_strncmp(av[2], "--save", 7))
+		ft_exit_error("Did you mean '--save'?\n", NULL, NULL, 0);
+}
+
+int			main(int ac, char **av)
 {
 	t_cub cub;
 

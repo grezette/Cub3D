@@ -17,8 +17,9 @@ SRCS			=	./srcs/cub3d.c \
 					./srcs/parsing/parsing_utils.c \
 					./srcs/parsing/ft_pars_map.c \
 					./srcs/parsing/printf_parsing.c \
-					./srcs/raytracer/ft_raytracer.c \
-					./srcs/raytracer/hooking.c \
+					./srcs/raycaster/ft_raycaster.c \
+					./srcs/raycaster/raycaster_utils.c \
+					./srcs/raycaster/hooking.c \
 
 OBJS			=	$(SRCS:.c=.o)
 

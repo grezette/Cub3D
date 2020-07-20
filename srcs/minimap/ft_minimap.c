@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/19 15:00:25 by grezette          #+#    #+#             */
-/*   Updated: 2020/07/19 15:00:34 by grezette         ###   ########.fr       */
+/*   Created: 2020/07/20 18:40:57 by grezette          #+#    #+#             */
+/*   Updated: 2020/07/20 18:41:05 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,59 +54,56 @@ int		ft_minimap_good_size(char **map)
 }
 
 /*
+void	ft_wright_minimap(t_cub *cub, int x, int y, t_color col)
+{
+	int max_x;
+	int max_y;
+	int tmp_x;
 
-   void	ft_wright_minimap(t_cub *cub, int x, int y, t_color col)
-   {
-   int max_x;
-   int max_y;
-   int tmp_x;
-
-   max_x = (x + 1) * cub->reso.x / ft_width_map(cub->map) / 4;
-   max_y = (y + 1) * cub->reso.y / ft_square_strlen(cub->map) / 4;
-   x = x * cub->reso.x / ft_width_map(cub->map) / 4;
-   y = y * cub->reso.y / ft_square_strlen(cub->map) / 4;
-   tmp_x = x;
-   while (++y < max_y)
-   {
-   x = tmp_x;
-   while (x < max_x)
-   {
-   cub->data[4 * x + 4 * cub->reso.x * y] = (char)col.blue;
-   cub->data[4 * x + 4 * cub->reso.x * y + 1] = (char)col.green;
-   cub->data[4 * x + 4 * cub->reso.x * y + 2] = (char)col.red;
-   x++;
-   }
-   }
-   }
-   */
+	max_x = (x + 1) * cub->reso.x / ft_width_map(cub->map) / 4;
+	max_y = (y + 1) * cub->reso.y / ft_square_strlen(cub->map) / 4;
+	x = x * cub->reso.x / ft_width_map(cub->map) / 4;
+	y = y * cub->reso.y / ft_square_strlen(cub->map) / 4;
+	tmp_x = x;
+	while (++y < max_y)
+	{
+		x = tmp_x;
+		while (x < max_x)
+		{
+			cub->data[4 * x + 4 * cub->reso.x * y] = (char)col.blue;
+			cub->data[4 * x + 4 * cub->reso.x * y + 1] = (char)col.green;
+			cub->data[4 * x + 4 * cub->reso.x * y + 2] = (char)col.red;
+			x++;
+		}
+	}
+}
+*/
 /*penser à rajouter un bail qui déclare les couleur direct genre:*/
 /*	'int wight; wight.red = 255, wight.green = 255, etc...*/
 
 /*
+void	ft_minimap(t_cub *cub)
+{
+	int x;
+	int y;
 
-   void	ft_minimap(t_cub *cub)
-   {
-   int x;
-   int y;
-
-   y = -1;
-   while (cub->map[++y])
-   {
-   x = -1;
-   while (cub->map[y][++x])
-   {
-   if (cub->map[y][x] == '1')
-   ft_wright_minimap(cub, x, y, blue);
-   if (cub->map[y][x] == '2')
-   ft_wright_minimap(cub, x, y, green);
-   if (cub->map[y][x] == '0')
-   ft_wright_minimap(cub, x, y, wight);
-   if (cub->map[y][x] == 'N' || cub->map[y][x] == 'S' ||
-   cub->map[y][x] == 'E' || cub->map[y][x] == 'W')
-   ft_wright_minimap(cub, x, y, red);
-   }
-   }
-   mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img_ptr, 0, 0);
-   }
-
+	y = -1;
+	while (cub->map[++y])
+	{
+		x = -1;
+		while (cub->map[y][++x])
+		{
+			if (cub->map[y][x] == '1')
+				ft_wright_minimap(cub, x, y, blue);
+			if (cub->map[y][x] == '2')
+				ft_wright_minimap(cub, x, y, green);
+			if (cub->map[y][x] == '0')
+				ft_wright_minimap(cub, x, y, wight);
+			if (cub->map[y][x] == 'N' || cub->map[y][x] == 'S' ||
+					cub->map[y][x] == 'E' || cub->map[y][x] == 'W')
+				ft_wright_minimap(cub, x, y, red);
+		}
+	}
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img_ptr, 0, 0);
+}
 */

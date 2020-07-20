@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 15:01:14 by grezette          #+#    #+#             */
-/*   Updated: 2020/07/19 17:01:24 by grezette         ###   ########.fr       */
+/*   Updated: 2020/07/20 17:01:07 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,32 @@ static t_coord	ft_guess_start_direction(char **map, int x, int y)
 	return (dir);
 }
 
-void			ft_check_param(int ac, char **av)
+static void		ft_get_textures(t_cub *cub)
 {
-	if (ac < 2 || ac > 3)
-		ft_exit_error("Wrong numer of argument\n", NULL, NULL, 0);
-	if (ft_strncmp(&(av[1][ft_strlen(av[1]) - 4]), ".cub", 5))
-		ft_exit_error("File is not a '.cub'\n", NULL, NULL, 0);
-	if (ac == 3 && ft_strncmp(av[2], "--save", 7))
-		ft_exit_error("Did you mean '--save'?\n", NULL, NULL, 0);
+	if (!(cub->txtr[0].img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr,
+					cub->n_txtr, &((cub->txtr[0]).width),
+					&(cub->txtr[0].height))))
+		ft_exit_error("North path not valid", NULL, cub, 0);
+	cub->txtr[0].data = mlx_get_data_addr(cub->txtr[0].img_ptr,
+			&cub->txtr[0].bpp, &cub->txtr[0].size_l, &cub->txtr[0].endian);
+	if (!(cub->txtr[1].img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr,
+					cub->s_txtr, &((cub->txtr[1]).width),
+					&(cub->txtr[1].height))))
+		ft_exit_error("South path not valid", NULL, cub, 0);
+	cub->txtr[1].data = mlx_get_data_addr(cub->txtr[1].img_ptr,
+			&cub->txtr[1].bpp, &cub->txtr[1].size_l, &cub->txtr[1].endian);
+	if (!(cub->txtr[2].img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr,
+					cub->e_txtr, &((cub->txtr[2]).width),
+					&(cub->txtr[2].height))))
+		ft_exit_error("East path not valid", NULL, cub, 0);
+	cub->txtr[2].data = mlx_get_data_addr(cub->txtr[2].img_ptr,
+			&cub->txtr[2].bpp, &cub->txtr[2].size_l, &cub->txtr[2].endian);
+	if (!(cub->txtr[3].img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr,
+					cub->w_txtr, &((cub->txtr[3]).width),
+					&(cub->txtr[3].height))))
+		ft_exit_error("West path not valid", NULL, cub, 0);
+	cub->txtr[3].data = mlx_get_data_addr(cub->txtr[3].img_ptr,
+			&cub->txtr[3].bpp, &cub->txtr[3].size_l, &cub->txtr[3].endian);
 }
 
 void			ft_minilibx_init(t_cub *cub)
@@ -122,45 +140,5 @@ void			ft_minilibx_init(t_cub *cub)
 	cub->key[4] = 0;
 	cub->key[5] = 0;
 	cub->key[6] = 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	if (!(cub->txtr[0].img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr,
-					cub->n_txtr, &((cub->txtr[0]).width), &(cub->txtr[0].height))))
-		ft_exit_error("North path not valid", NULL, cub, 0);
-	cub->txtr[0].data = mlx_get_data_addr(cub->txtr[0].img_ptr, &cub->txtr[0].bpp, &cub->txtr[0].size_l, &cub->txtr[0].endian);
-	if (!(cub->txtr[1].img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr,
-					cub->s_txtr, &((cub->txtr[1]).width), &(cub->txtr[1].height))))
-		ft_exit_error("South path not valid", NULL, cub, 0);
-	cub->txtr[1].data = mlx_get_data_addr(cub->txtr[1].img_ptr, &cub->txtr[1].bpp, &cub->txtr[1].size_l, &cub->txtr[1].endian);
-	if (!(cub->txtr[2].img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr,
-					cub->e_txtr, &((cub->txtr[2]).width), &(cub->txtr[2].height))))
-		ft_exit_error("East path not valid", NULL, cub, 0);
-	cub->txtr[2].data = mlx_get_data_addr(cub->txtr[2].img_ptr, &cub->txtr[2].bpp, &cub->txtr[2].size_l, &cub->txtr[2].endian);
-	if (!(cub->txtr[3].img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr,
-					cub->w_txtr, &((cub->txtr[3]).width), &(cub->txtr[3].height))))
-		ft_exit_error("West path not valid", NULL, cub, 0);
-	cub->txtr[3].data = mlx_get_data_addr(cub->txtr[3].img_ptr, &cub->txtr[3].bpp, &cub->txtr[3].size_l, &cub->txtr[3].endian);
+	ft_get_textures(cub);
 }
-
-
-
-
-
-
-
-
-

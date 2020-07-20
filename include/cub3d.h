@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 16:13:36 by grezette          #+#    #+#             */
-/*   Updated: 2020/07/19 13:59:59 by grezette         ###   ########.fr       */
+/*   Updated: 2020/07/20 17:51:09 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 /*
 **utils and security
 */
-void	ft_check_param(int ac, char **av);
 void	ft_exit_error(char *msg, void *elem, t_cub *cub, int fd);
 void	ft_minilibx_init(t_cub *cub);
 
@@ -58,7 +57,11 @@ void	ft_print_parsing(t_cub *cub);
 /*
 **raycasting
 */
-void	ft_raytracer(t_cub *cub);
+void	ft_raycaster(t_cub *cub);
+void	ft_if_raydir(t_cub *cub);
+void	ft_rayt_dda(t_cub *cub);
+void	ft_rayt_height(t_cub *cub);
+int		ft_guess_orientation(t_cub *cub);
 
 /*
 **input gathering

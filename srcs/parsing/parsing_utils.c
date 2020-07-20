@@ -1,15 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/20 16:53:15 by grezette          #+#    #+#             */
+/*   Updated: 2020/07/20 17:14:47 by grezette         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
-
-char	**ft_square_free(char **tab)
-{
-		int i;
-
-			i = -1;
-				while (tab[++i])
-							free(tab[i]);
-					free(tab);
-						return (NULL);
-}
 
 int		ft_is_parsing_finished(t_cub *cub)
 {

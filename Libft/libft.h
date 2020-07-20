@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 10:20:12 by grezette          #+#    #+#             */
-/*   Updated: 2020/01/26 13:43:41 by grezette         ###   ########.fr       */
+/*   Updated: 2020/07/20 17:16:08 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ char				*ft_strnstr(const char *haystack, const char *needle,
 					size_t len);
 
 char				**ft_split(char const *s, char c);
+char				**ft_square_strjoin(char **tab, char *str);
+char				**ft_square_free(char **str);
 
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);

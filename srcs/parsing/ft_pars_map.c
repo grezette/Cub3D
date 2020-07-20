@@ -1,27 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_pars_map.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/20 17:17:21 by grezette          #+#    #+#             */
+/*   Updated: 2020/07/20 17:17:23 by grezette         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
-#include <stdio.h>
-
-static char	**ft_square_strjoin(char **tab, char *str)
-{
-	char	**ret;
-	int		i;
-
-	i = 0;
-	while (tab && tab[i])
-		i++;
-	if (!(ret = (char **)malloc(sizeof(char *) * (i + 2))))
-		return (NULL);
-	i = -1;
-	while (tab && tab[++i])
-		if (!(ret[i] = ft_strdup(tab[i])))
-			return (ft_square_free(ret));
-	i = (i < 0) ? 0 : i;
-	if (str)
-		if (!(ret[i] = ft_strdup(str)))
-			return (ft_square_free(ret));
-	ret[i + 1] = NULL;
-	return (ret);
-}
 
 static int	ft_check_char_map(char **map)
 {
@@ -37,7 +26,7 @@ static int	ft_check_char_map(char **map)
 		while (map[i][++j])
 		{
 			if ((map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' ||
-					map[i][j] == 'W') && bol)
+						map[i][j] == 'W') && bol)
 				return (-1);
 			else if ((map[i][j] == 'N' || map[i][j] == 'S' ||
 						map[i][j] == 'E' || map[i][j] == 'W') && !bol)
@@ -88,10 +77,11 @@ static void	ft_pars_map2(t_cub *cub)
 			map[y][x] != 'S')
 	{
 		x = 0;
-		while (map[y][x] && map[y][x] != 'N' && map[y][x] != 'W' && map[y][x] != 'E' &&
-			map[y][x] != 'S')
-				x++;
-		if (map[y][x] == 'N' || map[y][x] == 'W' || map[y][x] == 'E' || map[y][x] == 'S')
+		while (map[y][x] && map[y][x] != 'N' && map[y][x] != 'W' &&
+				map[y][x] != 'E' && map[y][x] != 'S')
+			x++;
+		if (map[y][x] == 'N' || map[y][x] == 'W' || map[y][x] == 'E' ||
+				map[y][x] == 'S')
 			break ;
 		y++;
 	}
@@ -102,13 +92,14 @@ static void	ft_pars_map2(t_cub *cub)
 char		**ft_adjust_map(char **map)
 {
 	char	**str;
-	int 	i;
+	int		i;
 	int		j;
-	int 	k;
+	int		k;
 
 	i = 0;
 	k = 0;
-	if (!(str = (char **)malloc(sizeof(char *) * (ft_minimap_good_size(map) + 1))))
+	if (!(str = (char **)malloc(sizeof(char *) *
+					(ft_minimap_good_size(map) + 1))))
 		return (NULL);
 	while (map[i])
 	{
@@ -120,12 +111,8 @@ char		**ft_adjust_map(char **map)
 		i++;
 	}
 	while (k <= ft_minimap_good_size(map))
-	{
-		if (!(str[k] = ft_strdup(map[i])))
+		if (!(str[k++] = ft_strdup(map[i++])))
 			return (ft_square_free(str));
-		k++;
-		i++;
-	}
 	str[k] = NULL;
 	return (str);
 }
