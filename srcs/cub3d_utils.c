@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 15:01:14 by grezette          #+#    #+#             */
-/*   Updated: 2020/07/20 17:01:07 by grezette         ###   ########.fr       */
+/*   Updated: 2020/07/27 17:33:24 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,16 +129,12 @@ void			ft_minilibx_init(t_cub *cub)
 			&(cub->scr.size_l), &(cub->scr.endian));
 	cub->pos = ft_guess_start_position(cub->map);
 	cub->dir = ft_guess_start_direction(cub->map, cub->pos.x, cub->pos.y);
-	cub->plane.x = 0.66;
-	cub->plane.y = 0.66;
+	cub->plane.x = 0.85;
+	cub->plane.y = 0.0;
 	cub->movespeed = 0.033 * 5.0;
 	cub->rotspeed = 0.033 * 3.0;
-	cub->key[0] = 0;
-	cub->key[1] = 0;
-	cub->key[2] = 0;
-	cub->key[3] = 0;
-	cub->key[4] = 0;
-	cub->key[5] = 0;
-	cub->key[6] = 0;
+	ft_bzero(cub->key, sizeof(int) * 6);
+	if (!(cub->z_buffer = (double *)malloc(sizeof(double) * cub->reso.x)))
+		ft_exit_error("minilibx_init failed", NULL, cub, 0);
 	ft_get_textures(cub);
 }

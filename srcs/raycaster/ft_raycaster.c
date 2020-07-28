@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 20:03:36 by grezette          #+#    #+#             */
-/*   Updated: 2020/07/20 17:58:24 by grezette         ###   ########.fr       */
+/*   Updated: 2020/07/27 17:57:03 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void		ft_raycaster(t_cub *cub)
 		ft_rayt_dda(cub);
 		ft_rayt_height(cub);
 		ft_draw_columns(cub, x, ft_guess_orientation(cub));
+		cub->z_buffer[x] = cub->perpwalldist;
 	}
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->scr.img_ptr, 0, 0);
 }
