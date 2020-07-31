@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 15:01:14 by grezette          #+#    #+#             */
-/*   Updated: 2020/07/27 17:33:24 by grezette         ###   ########.fr       */
+/*   Updated: 2020/07/31 14:42:58 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +158,8 @@ void			ft_minilibx_init(t_cub *cub)
 	cub->dir = ft_guess_start_direction(cub->map, cub->pos.x, cub->pos.y);
 	cub->plane.x = 0.85;
 	cub->plane.y = 0.0;
-	cub->movespeed = 0.033 * 5.0;
-	cub->rotspeed = 0.033 * 3.0;
+	cub->movespeed = 0.033 * 3.0;
+	cub->rotspeed = 0.033 * 1.8;
 	ft_bzero(cub->key, sizeof(int) * 8);
 	if (!(cub->z_buffer = (double *)malloc(sizeof(double) * cub->reso.x)))
 		ft_exit_error("minilibx_init failed", NULL, cub, 0);
