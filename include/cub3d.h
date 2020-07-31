@@ -62,6 +62,7 @@ void	ft_if_raydir(t_cub *cub);
 void	ft_rayt_dda(t_cub *cub);
 void	ft_rayt_height(t_cub *cub);
 int		ft_guess_orientation(t_cub *cub);
+void	ft_sprite_casting(t_cub *cub);
 
 /*
 **input gathering

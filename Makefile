@@ -20,6 +20,7 @@ SRCS			=	./srcs/cub3d.c \
 					./srcs/raycaster/ft_raycaster.c \
 					./srcs/raycaster/raycaster_utils.c \
 					./srcs/raycaster/hooking.c \
+					./srcs/raycaster/sprite.c \
 
 OBJS			=	$(SRCS:.c=.o)
 

@@ -89,6 +89,23 @@ typedef struct	s_cub
 	double		rotspeed;
 
 	double		*z_buffer;
+	t_img		spt_img;
+	t_coord		*sprt;
+	int			nb_sprt;
+	int			*sprt_order;
+	double		*sprt_dist;
+	t_coord		spt_pos;
+	double		invdet;
+	t_coord		transform;
+	int			spritescreenx;
+
+	int			vmovescreen;
+	int			sprt_height;
+	t_reso		spt_drawstart;
+	t_reso		spt_drawend;
+	int			sprite_width;
+
+
 }				t_cub;
 
 #endif

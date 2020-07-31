@@ -38,6 +38,33 @@ void			ft_exit_error(char *msg, void *elem, t_cub *cub, int fd)
 	exit(0);
 }
 
+static void		ft_get_sprt_info(t_cub *cub)
+{
+	int i;
+	int j;
+	int k;
+
+	i = -1;
+	k = -1;
+	cub->nb_sprt = 0;
+	while (!(j = -1) || cub->map[++i])
+		while (cub->map[i][++j])
+			if (cub->map[i][j] == '2')
+				cub->nb_sprt++;
+	if (!(cub->sprt = (t_coord *)malloc(sizeof(t_coord) * cub->nb_sprt)) ||
+			!(cub->sprt_order = (int *)malloc(sizeof(int) * cub->nb_sprt)) ||
+			!(cub->sprt_dist = (double *)malloc(sizeof(double) * cub->nb_sprt)))
+		ft_exit_error("get_sprt_info failed", NULL, cub, 0);
+	i = -1;
+	while (!(j = -1) || cub->map[++i])
+		while (cub->map[i][++j])
+			if (cub->map[i][j] == '2')
+			{
+				cub->sprt[++k].x = (double)j;
+				cub->sprt[k].y = (double)i;
+			}
+}
+
 static t_coord	ft_guess_start_position(char **map)
 {
 	t_coord	pos;
@@ -133,8 +160,15 @@ void			ft_minilibx_init(t_cub *cub)
 	cub->plane.y = 0.0;
 	cub->movespeed = 0.033 * 5.0;
 	cub->rotspeed = 0.033 * 3.0;
-	ft_bzero(cub->key, sizeof(int) * 6);
+	ft_bzero(cub->key, sizeof(int) * 8);
 	if (!(cub->z_buffer = (double *)malloc(sizeof(double) * cub->reso.x)))
 		ft_exit_error("minilibx_init failed", NULL, cub, 0);
 	ft_get_textures(cub);
+	ft_get_sprt_info(cub);
+	if (!(cub->spt_img.img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr,
+					cub->spt_txtr, &(cub->spt_img.width),
+					&(cub->spt_img.height))))
+		ft_exit_error("Sprite path not valid", NULL, cub, 0);
+	cub->spt_img.data = mlx_get_data_addr(cub->spt_img.img_ptr,
+			&cub->spt_img.bpp, &cub->spt_img.size_l, &cub->spt_img.endian);
 }
