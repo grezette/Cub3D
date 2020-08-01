@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 15:01:14 by grezette          #+#    #+#             */
-/*   Updated: 2020/07/31 14:42:58 by grezette         ###   ########.fr       */
+/*   Updated: 2020/08/01 16:26:02 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ static void		ft_get_sprt_info(t_cub *cub)
 		while (cub->map[i][++j])
 			if (cub->map[i][j] == '2')
 			{
-				cub->sprt[++k].x = (double)j;
-				cub->sprt[k].y = (double)i;
+				cub->sprt[++k].x = (double)j + 0.5;
+				cub->sprt[k].y = (double)i + 0.5;
 			}
 }
 

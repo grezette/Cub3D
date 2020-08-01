@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 20:03:36 by grezette          #+#    #+#             */
-/*   Updated: 2020/07/27 17:57:03 by grezette         ###   ########.fr       */
+/*   Updated: 2020/08/01 16:39:30 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	ft_tex_color(t_cub *cub, int t, int x)
 	texx = (t == 3 || t == 1) ? cub->txtr[t].width - texx - 1 : texx;
 	step = 1.0 * cub->txtr[t].height / cub->lineheight;
 	texpos = (cub->drawstart - cub->reso.y / 2 + cub->lineheight / 2) * step;
-	while (++cub->drawstart < cub->drawend)
+	while (cub->drawstart++ < cub->drawend)
 	{
 		texy = (int)texpos & (cub->txtr[t].height - 1);
 		texpos += step;
@@ -59,9 +59,10 @@ static void	ft_draw_columns(t_cub *cub, int x, int t)
 	i = -1;
 	while (++i < cub->drawstart)
 		ft_draw_pixel(cub, cub->ceiling, x, i);
-	cub->drawstart--;
+	cub->drawstart -= 2;
 	while (++cub->drawstart < cub->drawend)
 		ft_tex_color(cub, t, x);
+	cub->drawstart -= 2;
 	while (++cub->drawstart < cub->reso.y)
 		ft_draw_pixel(cub, cub->floor, x, cub->drawstart);
 }
