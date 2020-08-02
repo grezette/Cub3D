@@ -79,13 +79,12 @@ void	ft_set_cal_sprite(t_cub *cub, int i)
 		cub->reso.x - 1 : cub->spt_drawend.x;
 }
 
-void	ft_draw_sprite(t_cub *cub, int stripe, int texx, int i)
+void	ft_draw_sprite(t_cub *cub, int stripe, int texx)
 {
 	int y;
 	int d;
 	int	texy;
 
-	(void)i;
 	y = cub->spt_drawstart.y - 1;
 	while (++y < cub->spt_drawend.y)
 	{
@@ -126,7 +125,7 @@ void	ft_sprite_casting(t_cub *cub)
 							cub->spritescreenx)) * cub->spt_img.width / cub->sprite_width) / 256;
 			if (cub->transform.y > 0 && stripe > 0 && stripe < cub->reso.x &&
 					cub->transform.y < cub->z_buffer[stripe])
-				ft_draw_sprite(cub, stripe, texx, i);
+				ft_draw_sprite(cub, stripe, texx);
 		}
 	}	
 }
