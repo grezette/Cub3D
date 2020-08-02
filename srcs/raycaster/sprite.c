@@ -33,9 +33,7 @@ void	ft_sort_sprite(t_cub *cub)
 				cub->sprt_order[j] = cub->sprt_order[j + 1];
 				cub->sprt_order[j + 1] = (int)tmp;
 			}
-			j++;
 		}
-		i++;
 	}
 }
 
