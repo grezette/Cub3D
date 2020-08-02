@@ -71,8 +71,8 @@ static t_coord	ft_guess_start_position(char **map)
 	int		i;
 	int		j;
 
-	i = 0;
-	while (map[++i])
+	i = -1;
+	while (++i <= (int)ft_square_strlen(map))
 	{
 		j = 0;
 		pos.y = (double)i;
@@ -89,32 +89,35 @@ static t_coord	ft_guess_start_position(char **map)
 	return (pos);
 }
 
-static t_coord	ft_guess_start_direction(char **map, int x, int y)
+static void	ft_set_orientation(t_cub *cub, double diry, double plx, double ply)
 {
-	t_coord dir;
+	cub->dir.y = diry;
+	cub->plane.x = plx;
+	cub->plane.y = ply;
+}
 
-	if (map[y][x] == 'N')
+static void	ft_guess_start_direction(t_cub *cub, int x, int y)
+{
+	if (cub->map[y][x] == 'N')
 	{
-		dir.x = 0;
-		dir.y = -1;
+		cub->dir.x = 0;
+		ft_set_orientation(cub, -1, 0.85, 0.0);
 	}
-	if (map[y][x] == 'S')
+	else if (cub->map[y][x] == 'S')
 	{
-		dir.x = 0;
-		dir.y = 1;
+		cub->dir.x = 0;
+		ft_set_orientation(cub, 1, -0.85, 0.0);
 	}
-	if (map[y][x] == 'E')
+	else if (cub->map[y][x] == 'E')
 	{
-		dir.x = 1;
-		dir.y = 0;
+		cub->dir.x = 1;
+		ft_set_orientation(cub, 0, 0.0, 0.85);
 	}
-	if (map[y][x] == '0')
+	else
 	{
-		dir.x = -1;
-		dir.y = 0;
+		cub->dir.x = -1;
+		ft_set_orientation(cub, 0, 0.0, -0.85);
 	}
-	map[y][x] = '0';
-	return (dir);
 }
 
 static void		ft_get_textures(t_cub *cub)
@@ -155,9 +158,7 @@ void			ft_minilibx_init(t_cub *cub)
 	cub->scr.data = mlx_get_data_addr(cub->scr.img_ptr, &(cub->scr.bpp), \
 			&(cub->scr.size_l), &(cub->scr.endian));
 	cub->pos = ft_guess_start_position(cub->map);
-	cub->dir = ft_guess_start_direction(cub->map, cub->pos.x, cub->pos.y);
-	cub->plane.x = 0.85;
-	cub->plane.y = 0.0;
+	ft_guess_start_direction(cub, cub->pos.x, cub->pos.y);
 	cub->movespeed = 0.033 * 3.0;
 	cub->rotspeed = 0.033 * 1.8;
 	ft_bzero(cub->key, sizeof(int) * 8);

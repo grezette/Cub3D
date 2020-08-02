@@ -99,7 +99,7 @@ char		**ft_adjust_map(char **map)
 	i = 0;
 	k = 0;
 	if (!(str = (char **)malloc(sizeof(char *) *
-					(ft_minimap_good_size(map) + 1))))
+					(ft_minimap_good_size(map) + 2))))
 		return (NULL);
 	while (map[i])
 	{
