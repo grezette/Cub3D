@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 14:01:42 by grezette          #+#    #+#             */
-/*   Updated: 2020/07/27 17:19:48 by grezette         ###   ########.fr       */
+/*   Updated: 2020/08/09 18:39:52 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef	struct	s_img
 	int			bpp;
 	int			endian;
 	int			width;
-	int			height;
+	int			h;
 }				t_img;
 
 typedef struct	s_cub

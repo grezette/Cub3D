@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 20:03:36 by grezette          #+#    #+#             */
-/*   Updated: 2020/08/01 16:39:30 by grezette         ###   ########.fr       */
+/*   Updated: 2020/08/09 18:41:40 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,20 @@ static void	ft_tex_color(t_cub *cub, int t, int x)
 		cub->pos.y + cub->perpwalldist * cub->raydir.y;
 	texx = (int)((wallx - floor(wallx)) * (double)cub->txtr[t].width);
 	texx = (t == 3 || t == 1) ? cub->txtr[t].width - texx - 1 : texx;
-	step = 1.0 * cub->txtr[t].height / cub->lineheight;
+	step = 1.0 * cub->txtr[t].h / cub->lineheight;
 	texpos = (cub->drawstart - cub->reso.y / 2 + cub->lineheight / 2) * step;
 	while (cub->drawstart++ < cub->drawend)
 	{
-		texy = (int)texpos & (cub->txtr[t].height - 1);
+		texy = (int)texpos & (cub->txtr[t].h - 1);
 		texpos += step;
 		cub->scr.data[4 * x + 4 * cub->reso.x * cub->drawstart + 0] =
-			cub->txtr[t].data[texy * cub->txtr[t].height * 4 + texx * 4];
+			cub->txtr[t].data[texy * cub->txtr[t].h * 4 + texx * 4];
 		cub->scr.data[4 * x + 4 * cub->reso.x * cub->drawstart + 1] =
-			cub->txtr[t].data[texy * cub->txtr[t].height * 4 + texx * 4 + 1];
+			cub->txtr[t].data[texy * cub->txtr[t].h * 4 + texx * 4 + 1];
 		cub->scr.data[4 * x + 4 * cub->reso.x * cub->drawstart + 2] =
-			cub->txtr[t].data[texy * cub->txtr[t].height * 4 + texx * 4 + 2];
+			cub->txtr[t].data[texy * cub->txtr[t].h * 4 + texx * 4 + 2];
 		cub->scr.data[4 * x + 4 * cub->reso.x * cub->drawstart + 3] =
-			cub->txtr[t].data[texy * cub->txtr[t].height * 4 + texx * 4 + 3];
+			cub->txtr[t].data[texy * cub->txtr[t].h * 4 + texx * 4 + 3];
 	}
 }
 

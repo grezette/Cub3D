@@ -12,7 +12,6 @@ LIBFT_DIR		=	Libft
 
 SRCS			=	./srcs/cub3d.c \
 					./srcs/cub3d_utils.c \
-					./srcs/minimap/ft_minimap.c \
 					./srcs/parsing/ft_pars_file.c \
 					./srcs/parsing/parsing_utils.c \
 					./srcs/parsing/ft_pars_map.c \

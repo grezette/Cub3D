@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 16:53:15 by grezette          #+#    #+#             */
-/*   Updated: 2020/07/20 17:14:47 by grezette         ###   ########.fr       */
+/*   Updated: 2020/08/09 17:34:34 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,15 @@ void	ft_pars_init(t_cub *cub)
 	cub->ceiling.green = 0;
 	cub->ceiling.blue = 0;
 	cub->map = NULL;
+	cub->scr.img_ptr = NULL;
+	cub->txtr[0].img_ptr = NULL;
+	cub->txtr[1].img_ptr = NULL;
+	cub->txtr[2].img_ptr = NULL;
+	cub->txtr[3].img_ptr = NULL;
+	cub->spt_img.img_ptr = NULL;
+	cub->win_ptr = NULL;
+	cub->z_buffer = NULL;
+	cub->sprt = NULL;
+	cub->sprt_order = NULL;
+	cub->sprt_dist = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 17:07:40 by grezette          #+#    #+#             */
-/*   Updated: 2020/07/20 17:15:33 by grezette         ###   ########.fr       */
+/*   Updated: 2020/08/09 18:28:52 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	**ft_square_strjoin(char **tab, char *str)
 	while (tab && tab[++i])
 		if (!(ret[i] = ft_strdup(tab[i])))
 			return (ft_square_free(ret));
-	i = (i < 0) ? 0 : i;
+	i = (str) ? i : i - 1;
 	if (str)
 		if (!(ret[i] = ft_strdup(str)))
 			return (ft_square_free(ret));

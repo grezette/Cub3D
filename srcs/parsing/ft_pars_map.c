@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 17:17:21 by grezette          #+#    #+#             */
-/*   Updated: 2020/07/20 17:17:23 by grezette         ###   ########.fr       */
+/*   Updated: 2020/08/09 18:31:23 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,18 @@ static void	flood_fill(char **map, int x, int y, t_cub *cub)
 	if (!map[y][x + 1] || !map[y + 1] || x - 1 < 0 || y - 1 < 0 ||
 			(int)ft_strlen(map[y + 1]) < x || (int)ft_strlen(map[y - 1]) < x ||
 			ft_isspace(map[y][x + 1]) || ft_isspace(map[y][x - 1]) ||
-			ft_isspace(map[y][y + 1]) || ft_isspace(map[y][y - 1]))
+			ft_isspace(map[y + 1][x]) || ft_isspace(map[y + 1][x]))
 	{
-		ft_square_free(map);
+		map = ft_square_free(map);
 		ft_exit_error("Map not closed\n", NULL, cub, 0);
 	}
-	else if (map[y][x + 1] != '1')
+	if (map[y][x + 1] != '1')
 		flood_fill(map, x + 1, y, cub);
-	else if (map[y][x - 1] != '1')
+	if (map[y][x - 1] != '1')
 		flood_fill(map, x - 1, y, cub);
-	else if (map[y + 1][x] != '1')
+	if (map[y + 1][x] != '1')
 		flood_fill(map, x, y + 1, cub);
-	else if (map[y - 1][x] != '1')
+	if (map[y - 1][x] != '1')
 		flood_fill(map, x, y - 1, cub);
 }
 
@@ -86,7 +86,7 @@ static void	ft_pars_map2(t_cub *cub)
 		y++;
 	}
 	flood_fill(map, x, y, cub);
-	ft_square_free(map);
+	map = ft_square_free(map);
 }
 
 char		**ft_adjust_map(char **map)
@@ -114,6 +114,7 @@ char		**ft_adjust_map(char **map)
 		if (!(str[k++] = ft_strdup(map[i++])))
 			return (ft_square_free(str));
 	str[k] = NULL;
+	ft_square_free(map);
 	return (str);
 }
 
@@ -129,7 +130,7 @@ void		ft_pars_map(t_cub *cub, int fd)
 			ft_exit_error("Parsing: 'Get_Next_Line' failed\n", NULL, cub, fd);
 		if (!(tmp = ft_square_strjoin(cub->map, line)))
 			ft_exit_error("Parsing: 'square_strjoin' failed\n", line, cub, fd);
-		free(cub->map);
+		cub->map = ft_square_free(cub->map);
 		cub->map = tmp;
 		free(line);
 	}

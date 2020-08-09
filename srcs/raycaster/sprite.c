@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 16:54:02 by grezette          #+#    #+#             */
-/*   Updated: 2020/08/01 16:43:26 by grezette         ###   ########.fr       */
+/*   Updated: 2020/08/09 18:41:57 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,20 +89,20 @@ void	ft_draw_sprite(t_cub *cub, int stripe, int texx)
 	while (++y < cub->spt_drawend.y)
 	{
 		d = y * 256 - cub->reso.y * 128 + cub->sprt_height * 128;
-		texy = ((d * cub->spt_img.height) / cub->sprt_height) / 256;
-		if (cub->spt_img.data[4 * texy * cub->spt_img.height + 4 * texx] ||
-				cub->spt_img.data[texy * cub->spt_img.height * 4 + texx * 4 + 1] ||
-				cub->spt_img.data[texy * cub->spt_img.height * 4 + texx * 4 + 2] ||
-				cub->spt_img.data[texy * cub->spt_img.height * 4 + texx * 4 + 3])
+		texy = ((d * cub->spt_img.h) / cub->sprt_height) / 256;
+		if (cub->spt_img.data[4 * texy * cub->spt_img.h + 4 * texx] ||
+				cub->spt_img.data[texy * cub->spt_img.h * 4 + texx * 4 + 1] ||
+				cub->spt_img.data[texy * cub->spt_img.h * 4 + texx * 4 + 2] ||
+				cub->spt_img.data[texy * cub->spt_img.h * 4 + texx * 4 + 3])
 		{
 			cub->scr.data[4 * stripe + 4 * cub->reso.x * y] =
-				cub->spt_img.data[4 * texy * cub->spt_img.height + 4 * texx];
+				cub->spt_img.data[4 * texy * cub->spt_img.h + 4 * texx];
 			cub->scr.data[4 * stripe + 4 * cub->reso.x * y + 1] =
-				cub->spt_img.data[texy * cub->spt_img.height * 4 + texx * 4 + 1];
+				cub->spt_img.data[texy * cub->spt_img.h * 4 + texx * 4 + 1];
 			cub->scr.data[4 * stripe + 4 * cub->reso.x * y + 2] =
-				cub->spt_img.data[texy * cub->spt_img.height * 4 + texx * 4 + 2];
+				cub->spt_img.data[texy * cub->spt_img.h * 4 + texx * 4 + 2];
 			cub->scr.data[4 * stripe + 4 * cub->reso.x * y + 3] =
-				cub->spt_img.data[texy * cub->spt_img.height * 4 + texx * 4 + 3];
+				cub->spt_img.data[texy * cub->spt_img.h * 4 + texx * 4 + 3];
 		}
 	}
 }
@@ -122,10 +122,11 @@ void	ft_sprite_casting(t_cub *cub)
 		while (++stripe < cub->spt_drawend.x)
 		{
 			texx = (int)(256 * (stripe - (-cub->sprite_width / 2 +
-							cub->spritescreenx)) * cub->spt_img.width / cub->sprite_width) / 256;
+							cub->spritescreenx)) * cub->spt_img.width /
+					cub->sprite_width) / 256;
 			if (cub->transform.y > 0 && stripe > 0 && stripe < cub->reso.x &&
 					cub->transform.y < cub->z_buffer[stripe])
 				ft_draw_sprite(cub, stripe, texx);
 		}
-	}	
+	}
 }
