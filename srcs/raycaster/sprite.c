@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 16:54:02 by grezette          #+#    #+#             */
-/*   Updated: 2020/08/09 18:41:57 by grezette         ###   ########.fr       */
+/*   Updated: 2020/08/10 17:05:23 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	ft_sort_sprite(t_cub *cub)
 	{
 		j = -1;
 		while (++j < cub->nb_sprt - 1)
-		{
 			if (cub->sprt_dist[j] < cub->sprt_dist[j + 1])
 			{
 				tmp = cub->sprt_dist[j];
@@ -33,7 +32,6 @@ void	ft_sort_sprite(t_cub *cub)
 				cub->sprt_order[j] = cub->sprt_order[j + 1];
 				cub->sprt_order[j + 1] = (int)tmp;
 			}
-		}
 	}
 }
 

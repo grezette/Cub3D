@@ -6,13 +6,13 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 15:01:14 by grezette          #+#    #+#             */
-/*   Updated: 2020/08/09 18:52:40 by grezette         ###   ########.fr       */
+/*   Updated: 2020/08/10 17:00:41 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int		ft_width_map(char **map)
+int				ft_width_map(char **map)
 {
 	int i;
 	int len;
@@ -24,7 +24,7 @@ int		ft_width_map(char **map)
 	return (len);
 }
 
-int		ft_minimap_good_size(char **map)
+int				ft_minimap_good_size(char **map)
 {
 	int i;
 	int j;
@@ -51,157 +51,6 @@ int		ft_minimap_good_size(char **map)
 			break ;
 	}
 	return (height + i - ft_square_strlen(map));
-}
-
-static void			ft_exit_error_2(t_cub *cub)
-{
-	if (cub->scr.img_ptr)
-		mlx_destroy_image(cub->mlx_ptr, cub->scr.img_ptr);
-	if (cub->txtr[0].img_ptr)
-		mlx_destroy_image(cub->mlx_ptr, cub->txtr[0].img_ptr);
-	if (cub->txtr[1].img_ptr)
-		mlx_destroy_image(cub->mlx_ptr, cub->txtr[1].img_ptr);
-	if (cub->txtr[2].img_ptr)
-		mlx_destroy_image(cub->mlx_ptr, cub->txtr[2].img_ptr);
-	if (cub->txtr[3].img_ptr)
-		mlx_destroy_image(cub->mlx_ptr, cub->txtr[3].img_ptr);
-	if (cub->spt_img.img_ptr)
-		mlx_destroy_image(cub->mlx_ptr, cub->spt_img.img_ptr);
-	if (cub->win_ptr)
-		mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
-	if (cub->z_buffer)
-		free(cub->z_buffer);
-	if (cub->sprt)
-		free(cub->sprt);
-	if (cub->sprt_order)
-		free(cub->sprt_order);
-	if (cub->sprt_dist)
-		free(cub->sprt_dist);
-}
-
-void			ft_exit_error(char *msg, void *elem, t_cub *cub, int fd)
-{
-	write(1, "error\n", 6);
-	write(1, msg, ft_strlen(msg));
-	free(elem);
-	if (cub)
-	{
-		free(cub->n_txtr);
-		free(cub->s_txtr);
-		free(cub->w_txtr);
-		free(cub->e_txtr);
-		free(cub->spt_txtr);
-		ft_square_free(cub->map);
-	}
-	if (fd)
-		if (close(fd) == -1)
-			write(1, "'close' failed as well\n", 22);
-	ft_exit_error_2(cub);
-	system("leaks Cub3D");
-	exit(0);
-}
-
-static void		ft_get_sprt_info(t_cub *cub)
-{
-	int i;
-	int j;
-	int k;
-
-	i = -1;
-	k = -1;
-	cub->nb_sprt = 0;
-	while (!(j = -1) || cub->map[++i])
-		while (cub->map[i][++j])
-			if (cub->map[i][j] == '2')
-				cub->nb_sprt++;
-	printf("%d\n", cub->nb_sprt);
-	if (!(cub->sprt = (t_coord *)malloc(sizeof(t_coord) * cub->nb_sprt)) ||
-			!(cub->sprt_order = (int *)malloc(sizeof(int) * cub->nb_sprt)) ||
-			!(cub->sprt_dist = (double *)malloc(sizeof(double) * cub->nb_sprt)))
-		ft_exit_error("get_sprt_info failed", NULL, cub, 0);
-	i = -1;
-	while (!(j = -1) || cub->map[++i])
-		while (cub->map[i][++j])
-			if (cub->map[i][j] == '2')
-			{
-				cub->sprt[++k].x = (double)j + 0.5;
-				cub->sprt[k].y = (double)i + 0.5;
-			}
-}
-
-static t_coord	ft_guess_start_position(char **map)
-{
-	t_coord	pos;
-	int		i;
-	int		j;
-
-	i = -1;
-	while (++i <= (int)ft_square_strlen(map))
-	{
-		j = 0;
-		pos.y = (double)i;
-		while (map[i][++j])
-		{
-			if (map[i][j] == 'N' || map[i][j] == 'S' ||
-					map[i][j] == 'W' || map[i][j] == 'E')
-			{
-				pos.x = (double)j;
-				return (pos);
-			}
-		}
-	}
-	return (pos);
-}
-
-static void	ft_set_orientation(t_cub *cub, double diry, double plx, double ply)
-{
-	cub->dir.y = diry;
-	cub->plane.x = plx;
-	cub->plane.y = ply;
-}
-
-static void	ft_guess_start_direction(t_cub *cub, int x, int y)
-{
-	if (cub->map[y][x] == 'N')
-	{
-		cub->dir.x = 0;
-		ft_set_orientation(cub, -1, 0.85, 0.0);
-	}
-	else if (cub->map[y][x] == 'S')
-	{
-		cub->dir.x = 0;
-		ft_set_orientation(cub, 1, -0.85, 0.0);
-	}
-	else if (cub->map[y][x] == 'E')
-	{
-		cub->dir.x = 1;
-		ft_set_orientation(cub, 0, 0.0, 0.85);
-	}
-	else
-	{
-		cub->dir.x = -1;
-		ft_set_orientation(cub, 0, 0.0, -0.85);
-	}
-}
-
-static void		ft_get_textures_2(t_cub *cub)
-{
-	if (!(cub->txtr[2].img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr,
-					cub->e_txtr, &((cub->txtr[2]).width),
-					&(cub->txtr[2].h))))
-		ft_exit_error("East path not valid", NULL, cub, 0);
-	if (!(cub->txtr[2].data = mlx_get_data_addr(cub->txtr[2].img_ptr,
-					&cub->txtr[2].bpp, &cub->txtr[2].size_l,
-					&cub->txtr[2].endian)))
-		ft_exit_error("mlx_get_data_addr failed\n", NULL, cub, 0);
-	if (!(cub->txtr[3].img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr,
-					cub->w_txtr, &((cub->txtr[3]).width),
-					&(cub->txtr[3].h))))
-		ft_exit_error("West path not valid", NULL, cub, 0);
-	if (!(cub->txtr[3].data = mlx_get_data_addr(cub->txtr[3].img_ptr,
-					&cub->txtr[3].bpp, &cub->txtr[3].size_l,
-					&cub->txtr[3].endian)))
-		ft_exit_error("mlx_get_data_addr failed\n", NULL, cub, 0);
 }
 
 static void		ft_get_textures(t_cub *cub)

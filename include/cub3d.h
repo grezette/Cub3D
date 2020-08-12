@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 16:13:36 by grezette          #+#    #+#             */
-/*   Updated: 2020/07/20 17:51:09 by grezette         ###   ########.fr       */
+/*   Updated: 2020/08/10 16:59:15 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,10 @@ void	ft_sprite_casting(t_cub *cub);
 int		loop_hook(void *param);
 int		key_hook_press(int keycode, void *param);
 int		key_hook_release(int keycode, void *param);
+
+void		ft_get_sprt_info(t_cub *cub);
+t_coord		ft_guess_start_position(char **map);
+void		ft_set_orientation(t_cub *cub, double diry, double plx, double ply);
+void		ft_guess_start_direction(t_cub *cub, int x, int y);
+void		ft_get_textures_2(t_cub *cub);
 #endif

@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 17:17:21 by grezette          #+#    #+#             */
-/*   Updated: 2020/08/09 18:31:23 by grezette         ###   ########.fr       */
+/*   Updated: 2020/08/10 16:48:38 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void		ft_pars_map(t_cub *cub, int fd)
 			ft_exit_error("Parsing: 'Get_Next_Line' failed\n", NULL, cub, fd);
 		if (!(tmp = ft_square_strjoin(cub->map, line)))
 			ft_exit_error("Parsing: 'square_strjoin' failed\n", line, cub, fd);
-		cub->map = ft_square_free(cub->map);
+		ft_square_free(cub->map);
 		cub->map = tmp;
 		free(line);
 	}

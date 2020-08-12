@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 16:59:49 by grezette          #+#    #+#             */
-/*   Updated: 2020/07/20 16:59:51 by grezette         ###   ########.fr       */
+/*   Updated: 2020/08/10 17:22:31 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ void		ft_pars_file(t_cub *cub, char *file)
 	int		ret;
 	char	*line;
 
-	ft_pars_init(cub);
 	if ((fd = open(file, O_RDONLY)) == -1)
 		ft_exit_error("Parsing: 'open' failed\n", NULL, NULL, 0);
 	while ((ret = get_next_line(fd, &line)))
