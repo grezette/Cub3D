@@ -61,17 +61,7 @@ void		ft_exit_error(char *msg, void *elem, t_cub *cub, int fd)
 	exit(0);
 }
 
-static void	ft_check_param(int ac, char **av)
-{
-	if (ac < 2 || ac > 3)
-		ft_exit_error("Wrong numer of argument\n", NULL, NULL, 0);
-	if (ft_strncmp(&(av[1][ft_strlen(av[1]) - 4]), ".cub", 5))
-		ft_exit_error("File is not a '.cub'\n", NULL, NULL, 0);
-	if (ac == 3 && ft_strncmp(av[2], "--save", 7))
-		ft_exit_error("Did you mean '--save'?\n", NULL, NULL, 0);
-}
-
-void		ft_draw_header(t_cub *cub, int fd)
+static void	ft_draw_header(t_cub *cub, int fd)
 {
 	int tmp;
 
@@ -99,7 +89,7 @@ void		ft_draw_header(t_cub *cub, int fd)
 	write(fd, &tmp, 4);
 }
 
-void			ft_minus_minus_save(t_cub *cub)
+static void	ft_minus_minus_save(t_cub *cub)
 {
 	int fd;
 	int	x;
@@ -122,7 +112,12 @@ int			main(int ac, char **av)
 	t_cub cub;
 
 	ft_pars_init(&cub);
-	ft_check_param(ac, av);
+	if (ac < 2 || ac > 3)
+		ft_exit_error("Wrong numer of argument\n", NULL, NULL, 0);
+	if (ft_strncmp(&(av[1][ft_strlen(av[1]) - 4]), ".cub", 5))
+		ft_exit_error("File is not a '.cub'\n", NULL, NULL, 0);
+	if (ac == 3 && ft_strncmp(av[2], "--save", 7))
+		ft_exit_error("Did you mean '--save'?\n", NULL, NULL, 0);
 	ft_pars_file(&cub, av[1]);
 	ft_minilibx_init(&cub);
 	if (ac == 3)
