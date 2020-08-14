@@ -71,9 +71,50 @@ static void	ft_check_param(int ac, char **av)
 		ft_exit_error("Did you mean '--save'?\n", NULL, NULL, 0);
 }
 
-int			prout(t_cub *cub)
+void		ft_draw_header(t_cub *cub, int fd)
 {
-	data_header = cub->scr.data;
+	int tmp;
+
+	write(fd, "BM", 2);
+	tmp = 14 + 40 + 4 * cub->reso.x * cub->reso.y;
+	write(fd, &tmp, 4);
+	tmp = 0;
+	write(fd, &tmp, 2);
+	write(fd, &tmp, 2);
+	tmp = 54;
+	write(fd, &tmp, 4);
+	tmp = 40;
+	write(fd, &tmp, 4);
+	write(fd, &cub->reso.x, 4);
+	write(fd, &cub->reso.y, 4);
+	tmp = 1;
+	write(fd, &tmp, 2);
+	write(fd, &cub->scr.bpp, 2);
+	tmp = 0;
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+}
+
+void			ft_minus_minus_save(t_cub *cub)
+{
+	int fd;
+	int	x;
+	int	y;
+
+	y = cub->reso.y;
+	if ((fd = open("./test.bmp", O_CREAT | O_RDWR | O_TRUNC)) == -1)
+		ft_exit_error("failed to create .bmp\n", NULL, cub, 0);
+	ft_raycaster(cub);
+	ft_draw_header(cub, fd);
+	while (--y >= 0 && (x = -1))
+		while (++x < cub->reso.x)
+			write(fd, &cub->scr.data[4 * y * cub->reso.x + 4 * x], 4);
+	system("chmod 777 test.bmp");
+	ft_exit_error("No just kidding\n", NULL, cub, fd);
 }
 
 int			main(int ac, char **av)
@@ -84,9 +125,14 @@ int			main(int ac, char **av)
 	ft_check_param(ac, av);
 	ft_pars_file(&cub, av[1]);
 	ft_minilibx_init(&cub);
-	mlx_hook(cub.win_ptr, X11_KEY_PRESS, \
+	if (ac == 3)
+		ft_minus_minus_save(&cub);
+	if (!(cub.win_ptr = mlx_new_window(cub.mlx_ptr,
+										cub.reso.x, cub.reso.y, "Cub3D")))
+	ft_exit_error("Mlx new window failed\n", NULL, &cub, 0);
+	mlx_hook(cub.win_ptr, X11_KEY_PRESS,
 			X11_KEY_PRESS_M, &key_hook_press, &cub);
-	mlx_hook(cub.win_ptr, X11_KEY_RELEASE, \
+	mlx_hook(cub.win_ptr, X11_KEY_RELEASE,
 			X11_KEY_RELEASE_M, &key_hook_release, &cub);
 	mlx_loop_hook(cub.mlx_ptr, &loop_hook, &cub);
 	mlx_loop(cub.mlx_ptr);

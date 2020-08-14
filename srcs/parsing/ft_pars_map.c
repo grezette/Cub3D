@@ -38,6 +38,8 @@ static int	ft_check_char_map(char **map)
 				return (-1);
 		}
 	}
+	if (!bol)
+		return (-1);
 	return (0);
 }
 
@@ -138,7 +140,7 @@ void		ft_pars_map(t_cub *cub, int fd)
 		ft_exit_error("'Close' failed", NULL, cub, 0);
 	if (ft_check_char_map(cub->map))
 		ft_exit_error("Parsing: Wrong char in map", NULL, cub, 0);
-	ft_pars_map2(cub);
 	if (!(cub->map = ft_adjust_map(cub->map)))
 		ft_exit_error("Parsing: adjust_map failed", NULL, cub, 0);
+	ft_pars_map2(cub);
 }

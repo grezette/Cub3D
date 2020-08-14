@@ -91,5 +91,4 @@ void		ft_raycaster(t_cub *cub)
 		cub->z_buffer[x] = cub->perpwalldist;
 	}
 	ft_sprite_casting(cub);
-	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->scr.img_ptr, 0, 0);
 }

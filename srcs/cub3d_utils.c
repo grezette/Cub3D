@@ -86,9 +86,6 @@ void			ft_minilibx_init(t_cub *cub)
 {
 	if (!(cub->mlx_ptr = mlx_init()))
 		ft_exit_error("mlx_init failed\n", NULL, cub, 0);
-	if (!(cub->win_ptr = mlx_new_window(cub->mlx_ptr,
-					cub->reso.x, cub->reso.y, "Cub3D")))
-		ft_exit_error("mlx_new_window failed\n", NULL, cub, 0);
 	if (!(cub->scr.img_ptr = mlx_new_image(cub->mlx_ptr,
 					cub->reso.x, cub->reso.y)))
 		ft_exit_error("mlx_new_image failed\n", NULL, cub, 0);

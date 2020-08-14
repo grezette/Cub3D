@@ -73,6 +73,7 @@ int			loop_hook(void *param)
 
 	cub = (t_cub *)param;
 	ft_raycaster(cub);
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->scr.img_ptr, 0, 0);
 	if (cub->key[2])
 	{
 		if (cub->map[(int)cub->pos.y][(int)(cub->pos.x - cub->dir.x *
