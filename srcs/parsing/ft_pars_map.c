@@ -136,8 +136,8 @@ void		ft_pars_map(t_cub *cub, int fd)
 	if (close(fd) == -1)
 		ft_exit_error("'Close' failed", NULL, cub, 0);
 	if (ft_check_char_map(cub->map))
-		ft_exit_error("Parsing: Wrong char in map", NULL, cub, 0);
+		ft_exit_error("Parsing: Wrong char in map\n", NULL, cub, 0);
 	if (!(cub->map = ft_adjust_map(cub->map)))
-		ft_exit_error("Parsing: adjust_map failed", NULL, cub, 0);
+		ft_exit_error("Parsing: adjust_map failed\n", NULL, cub, 0);
 	ft_pars_map2(cub);
 }

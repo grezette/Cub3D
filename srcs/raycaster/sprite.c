@@ -39,7 +39,7 @@ void	ft_sprite_sorting(t_cub *cub)
 {
 	int i;
 
-	i = 0;
+	i = -1;
 	while (++i < cub->nb_sprt)
 	{
 		cub->sprt_order[i] = i;
@@ -88,20 +88,18 @@ void	ft_draw_sprite(t_cub *cub, int stripe, int texx)
 	{
 		d = y * 256 - cub->reso.y * 128 + cub->sprt_height * 128;
 		texy = ((d * cub->spt_img.h) / cub->sprt_height) / 256;
-		if (cub->spt_img.data[4 * texy * cub->spt_img.h + 4 * texx] ||
-				cub->spt_img.data[texy * cub->spt_img.h * 4 + texx * 4 + 1] ||
-				cub->spt_img.data[texy * cub->spt_img.h * 4 + texx * 4 + 2] ||
-				cub->spt_img.data[texy * cub->spt_img.h * 4 + texx * 4 + 3])
-		{
+		if (cub->spt_img.data[4 * texy * cub->spt_img.h + 4 * texx])
 			cub->scr.data[4 * stripe + 4 * cub->reso.x * y] =
 				cub->spt_img.data[4 * texy * cub->spt_img.h + 4 * texx];
+		if (cub->spt_img.data[texy * cub->spt_img.h * 4 + texx * 4 + 1])
 			cub->scr.data[4 * stripe + 4 * cub->reso.x * y + 1] =
 				cub->spt_img.data[texy * cub->spt_img.h * 4 + texx * 4 + 1];
+		if (cub->spt_img.data[texy * cub->spt_img.h * 4 + texx * 4 + 2])
 			cub->scr.data[4 * stripe + 4 * cub->reso.x * y + 2] =
 				cub->spt_img.data[texy * cub->spt_img.h * 4 + texx * 4 + 2];
+		if (cub->spt_img.data[texy * cub->spt_img.h * 4 + texx * 4 + 3])
 			cub->scr.data[4 * stripe + 4 * cub->reso.x * y + 3] =
 				cub->spt_img.data[texy * cub->spt_img.h * 4 + texx * 4 + 3];
-		}
 	}
 }
 

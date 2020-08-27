@@ -27,6 +27,7 @@ char	**ft_square_strjoin(char **tab, char *str)
 		if (!(ret[i] = ft_strdup(tab[i])))
 			return (ft_square_free(ret));
 	i = (str) ? i : i - 1;
+	i = (i < 0) ? 0 : i;
 	if (str)
 		if (!(ret[i] = ft_strdup(str)))
 			return (ft_square_free(ret));

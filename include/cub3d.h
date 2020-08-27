@@ -19,8 +19,8 @@
 # include "../Libft/libft.h"
 # include "cub3d_struct.h"
 
-# define WIDTH_MAX 2560
-# define HEIGHT_MAX 1440
+# define WIDTH_MAX 1280
+# define HEIGHT_MAX 720
 
 # define X11_KEY_PRESS          2
 # define X11_KEY_PRESS_M        1
