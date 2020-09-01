@@ -51,11 +51,7 @@ static void	ft_tex_color(t_cub *cub, int t, int x)
 static void	ft_draw_columns(t_cub *cub, int x, int t)
 {
 	int		i;
-	t_color c;
-
-	c.red = 255;
-	c.green = 255;
-	c.blue = 255;
+	
 	i = -1;
 	while (++i < cub->drawstart)
 		ft_draw_pixel(cub, cub->ceiling, x, i);

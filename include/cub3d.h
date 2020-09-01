@@ -14,10 +14,10 @@
 # define CUB3D_H
 
 # include <fcntl.h>
-# include <mlx.h>
 # include <math.h>
-# include "../Libft/libft.h"
 # include "cub3d_struct.h"
+# include "../Libft/libft.h"
+# include "../minilibx-linux/mlx.h"
 
 # define WIDTH_MAX 1280
 # define HEIGHT_MAX 720
