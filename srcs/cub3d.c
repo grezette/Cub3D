@@ -36,7 +36,7 @@ void		ft_exit_error_2(t_cub *cub)
 		free(cub->sprt_order);
 	if (cub->sprt_dist)
 		free(cub->sprt_dist);
-	system("sudo leaks Cub3D");
+	//system("sudo leaks Cub3D");
 }
 
 void		ft_exit_error(char *msg, void *elem, t_cub *cub, int fd)

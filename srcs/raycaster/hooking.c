@@ -102,19 +102,19 @@ int			key_hook_release(int keycode, void *param)
 	t_cub *var;
 
 	var = (t_cub *)param;
-	if (keycode == 13)
+	if (keycode == 122)
 		var->key[0] = 0;
-	else if (keycode == 0)
+	else if (keycode == 113)
 		var->key[1] = 0;
-	else if (keycode == 1)
+	else if (keycode == 115)
 		var->key[2] = 0;
-	else if (keycode == 2)
+	else if (keycode == 100)
 		var->key[3] = 0;
-	else if (keycode == 53)
+	else if (keycode == 65307)
 		var->key[4] = 0;
-	else if (keycode == 123)
+	else if (keycode == 65361)
 		var->key[5] = 0;
-	else if (keycode == 124)
+	else if (keycode == 65363)
 		var->key[6] = 0;
 	return (0);
 }
@@ -124,19 +124,19 @@ int			key_hook_press(int keycode, void *param)
 	t_cub *var;
 
 	var = (t_cub *)param;
-	if (keycode == 13)
+	if (keycode == 122)
 		var->key[0] = 1;
-	else if (keycode == 0)
+	else if (keycode == 113)
 		var->key[1] = 1;
-	else if (keycode == 1)
+	else if (keycode == 115)
 		var->key[2] = 1;
-	else if (keycode == 2)
+	else if (keycode == 100)
 		var->key[3] = 1;
-	else if (keycode == 53)
+	else if (keycode == 65307)
 		var->key[4] = 1;
-	else if (keycode == 123)
+	else if (keycode == 65361)
 		var->key[5] = 1;
-	else if (keycode == 124)
+	else if (keycode == 65363)
 		var->key[6] = 1;
 	else if (keycode == 46 && var->key[7] == 0)
 		var->key[7] = 1;

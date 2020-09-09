@@ -36,7 +36,7 @@ CC      		=   gcc
 
 CFLAGS       		=   -Wall -Wextra -Werror -g
 
-LIBS			=	-L./libft -lft -L./minilibx-linux -lmlx_linux
+LIBS			=	-L./Libft -lft -L./minilibx-linux -lmlx_Linux -lX11 -lbsd -lm -lXext 
 
 all:			$(LIBFT) $(MLX) $(NAME)
 
