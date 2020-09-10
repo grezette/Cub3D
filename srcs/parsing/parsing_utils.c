@@ -32,8 +32,6 @@ int		ft_is_parsing_ok(t_cub *cub)
 			cub->floor.blue > 255 || cub->ceiling.red > 255 ||
 			cub->ceiling.green > 255 || cub->ceiling.blue > 255)
 		return (-1);
-	cub->reso.x = (cub->reso.x > WIDTH_MAX) ? WIDTH_MAX : cub->reso.x;
-	cub->reso.y = (cub->reso.x > HEIGHT_MAX) ? HEIGHT_MAX : cub->reso.y;
 	return (0);
 }
 
@@ -53,6 +51,7 @@ void	ft_pars_init(t_cub *cub)
 	cub->ceiling.blue = 0;
 	cub->map = NULL;
 	cub->scr.img_ptr = NULL;
+	cub->scr_two.img_ptr = NULL;
 	cub->txtr[0].img_ptr = NULL;
 	cub->txtr[1].img_ptr = NULL;
 	cub->txtr[2].img_ptr = NULL;

@@ -17,12 +17,10 @@ Requirements
 
  - MinilibX only support TrueColor visual type (8,15,16,24 or 32 bits depth)
  - gcc
- - make
- - X11 include files (package xorg)
- - XShm extension must be present (package libxext-dev)
- - Utility functions from BSD systems - development files (package libbsd-dev)
- - **e.g. _sudo apt-get install gcc make xorg libxext-dev libbsd-dev_ (Debian/Ubuntu)**
- 
+ - X11 include files
+ - XShm extension must be present
+
+
 Compile MinilibX
 
  - run ./configure or make

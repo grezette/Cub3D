@@ -59,6 +59,7 @@ typedef struct	s_cub
 	void		*win_ptr;
 
 	t_img		scr;
+	t_img		scr_two;
 	t_img		txtr[4];
 
 	t_coord		pos;

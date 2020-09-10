@@ -19,9 +19,6 @@
 # include "../Libft/libft.h"
 # include "../minilibx-linux/mlx.h"
 
-# define WIDTH_MAX 1280
-# define HEIGHT_MAX 720
-
 # define X11_KEY_PRESS          2
 # define X11_KEY_PRESS_M        1
 # define X11_KEY_RELEASE        3

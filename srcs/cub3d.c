@@ -16,6 +16,8 @@ void		ft_exit_error_2(t_cub *cub)
 {
 	if (cub->scr.img_ptr)
 		mlx_destroy_image(cub->mlx_ptr, cub->scr.img_ptr);
+	if (cub->scr_two.img_ptr)
+		mlx_destroy_image(cub->mlx_ptr, cub->scr_two.img_ptr);
 	if (cub->txtr[0].img_ptr)
 		mlx_destroy_image(cub->mlx_ptr, cub->txtr[0].img_ptr);
 	if (cub->txtr[1].img_ptr)
@@ -36,7 +38,6 @@ void		ft_exit_error_2(t_cub *cub)
 		free(cub->sprt_order);
 	if (cub->sprt_dist)
 		free(cub->sprt_dist);
-	//system("sudo leaks Cub3D");
 }
 
 void		ft_exit_error(char *msg, void *elem, t_cub *cub, int fd)
@@ -107,6 +108,12 @@ static void	ft_minus_minus_save(t_cub *cub)
 	ft_exit_error("No just kidding\n", NULL, cub, fd);
 }
 
+int go_to_exit(t_cub *cub)
+{
+	ft_exit_error("No just kidding\n", NULL, cub, 0);
+	exit(0);
+}
+
 int			main(int ac, char **av)
 {
 	t_cub cub;
@@ -125,6 +132,7 @@ int			main(int ac, char **av)
 	if (!(cub.win_ptr = mlx_new_window(cub.mlx_ptr,
 										cub.reso.x, cub.reso.y, "Cub3D")))
 	ft_exit_error("Mlx new window failed\n", NULL, &cub, 0);
+	mlx_hook(cub.win_ptr, 33, 1L << 17, &go_to_exit, &cub);
 	mlx_hook(cub.win_ptr, X11_KEY_PRESS,
 			X11_KEY_PRESS_M, &key_hook_press, &cub);
 	mlx_hook(cub.win_ptr, X11_KEY_RELEASE,

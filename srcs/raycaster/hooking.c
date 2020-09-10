@@ -12,7 +12,7 @@
 
 #include "../../include/cub3d.h"
 
-static int	cam_hook(t_cub *cub, double tmp_dirx, double tmp_planex)
+static void	ft_cam_hook(t_cub *cub, double tmp_dirx, double tmp_planex)
 {
 	if (cub->key[5])
 	{
@@ -36,16 +36,10 @@ static int	cam_hook(t_cub *cub, double tmp_dirx, double tmp_planex)
 		cub->plane.y = tmp_planex * sin(cub->rotspeed) +
 			cub->plane.y * cos(cub->rotspeed);
 	}
-	return (0);
 }
 
-static int	ft_move_forback(t_cub *cub)
+static void	ft_move_forback(t_cub *cub)
 {
-	double	tmp_dirx;
-	double	tmp_planex;
-
-	tmp_dirx = cub->dir.x;
-	tmp_planex = cub->plane.x;
 	if (cub->key[0])
 	{
 		if (cub->map[(int)cub->pos.y][(int)(cub->pos.x + cub->dir.x *
@@ -64,16 +58,10 @@ static int	ft_move_forback(t_cub *cub)
 					cub->movespeed / 2)][(int)cub->pos.x] != '1')
 			cub->pos.y = cub->pos.y - cub->dir.x * cub->movespeed / 2;
 	}
-	return (cam_hook(cub, tmp_dirx, tmp_planex));
 }
 
-int			loop_hook(void *param)
+static void	ft_move_left_right(t_cub *cub)
 {
-	t_cub *cub;
-
-	cub = (t_cub *)param;
-	ft_raycaster(cub);
-	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->scr.img_ptr, 0, 0);
 	if (cub->key[2])
 	{
 		if (cub->map[(int)cub->pos.y][(int)(cub->pos.x - cub->dir.x *
@@ -92,9 +80,26 @@ int			loop_hook(void *param)
 					cub->movespeed / 2)][(int)cub->pos.x] != '1')
 			cub->pos.y = cub->pos.y + cub->dir.x * cub->movespeed / 2;
 	}
+}
+
+int			loop_hook(void *param)
+{
+	t_cub *cub;
+	double	tmp_dirx;
+	double	tmp_planex;
+
+	cub = (t_cub *)param;
+	ft_raycaster(cub);
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->scr.img_ptr, 0, 0);
+	tmp_dirx = cub->dir.x;
+	tmp_planex = cub->plane.x;
+	ft_move_left_right(cub);
+	ft_move_forback(cub);
+	ft_cam_hook(cub, tmp_dirx, tmp_planex);
+	ft_swap(&cub->scr, &cub->scr_two);
 	if (cub->key[4])
 		ft_exit_error("No just kidding\n", NULL, cub, 0);
-	return (ft_move_forback(cub));
+	return (0);
 }
 
 int			key_hook_release(int keycode, void *param)
@@ -102,9 +107,9 @@ int			key_hook_release(int keycode, void *param)
 	t_cub *var;
 
 	var = (t_cub *)param;
-	if (keycode == 122)
+	if (keycode == 119)
 		var->key[0] = 0;
-	else if (keycode == 113)
+	else if (keycode == 97)
 		var->key[1] = 0;
 	else if (keycode == 115)
 		var->key[2] = 0;
@@ -124,9 +129,9 @@ int			key_hook_press(int keycode, void *param)
 	t_cub *var;
 
 	var = (t_cub *)param;
-	if (keycode == 122)
+	if (keycode == 119)
 		var->key[0] = 1;
-	else if (keycode == 113)
+	else if (keycode == 97)
 		var->key[1] = 1;
 	else if (keycode == 115)
 		var->key[2] = 1;

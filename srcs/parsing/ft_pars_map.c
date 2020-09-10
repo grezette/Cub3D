@@ -35,7 +35,7 @@ static int	ft_check_char_map(char **map)
 					map[i][j] != '\t' && map[i][j] != '\r' && map[i][j] != '\v')
 				return (-1);
 		}
-	if (!bol)
+	if (bol == 0)
 		return (-1);
 	return (0);
 }
