@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 15:00:08 by grezette          #+#    #+#             */
-/*   Updated: 2020/08/12 12:10:21 by grezette         ###   ########.fr       */
+/*   Updated: 2020/09/11 16:14:52 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,34 +62,6 @@ void		ft_exit_error(char *msg, void *elem, t_cub *cub, int fd)
 	exit(0);
 }
 
-static void	ft_draw_header(t_cub *cub, int fd)
-{
-	int tmp;
-
-	write(fd, "BM", 2);
-	tmp = 14 + 40 + 4 * cub->reso.x * cub->reso.y;
-	write(fd, &tmp, 4);
-	tmp = 0;
-	write(fd, &tmp, 2);
-	write(fd, &tmp, 2);
-	tmp = 54;
-	write(fd, &tmp, 4);
-	tmp = 40;
-	write(fd, &tmp, 4);
-	write(fd, &cub->reso.x, 4);
-	write(fd, &cub->reso.y, 4);
-	tmp = 1;
-	write(fd, &tmp, 2);
-	write(fd, &cub->scr.bpp, 2);
-	tmp = 0;
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-	write(fd, &tmp, 4);
-}
-
 static void	ft_minus_minus_save(t_cub *cub)
 {
 	int fd;
@@ -108,7 +80,7 @@ static void	ft_minus_minus_save(t_cub *cub)
 	ft_exit_error("No just kidding\n", NULL, cub, fd);
 }
 
-int go_to_exit(t_cub *cub)
+static int	go_to_exit(t_cub *cub)
 {
 	ft_exit_error("No just kidding\n", NULL, cub, 0);
 	exit(0);
@@ -130,8 +102,8 @@ int			main(int ac, char **av)
 	if (ac == 3)
 		ft_minus_minus_save(&cub);
 	if (!(cub.win_ptr = mlx_new_window(cub.mlx_ptr,
-										cub.reso.x, cub.reso.y, "Cub3D")))
-	ft_exit_error("Mlx new window failed\n", NULL, &cub, 0);
+					cub.reso.x, cub.reso.y, "Cub3D")))
+		ft_exit_error("Mlx new window failed\n", NULL, &cub, 0);
 	mlx_hook(cub.win_ptr, 33, 1L << 17, &go_to_exit, &cub);
 	mlx_hook(cub.win_ptr, X11_KEY_PRESS,
 			X11_KEY_PRESS_M, &key_hook_press, &cub);

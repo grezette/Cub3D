@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 20:03:36 by grezette          #+#    #+#             */
-/*   Updated: 2020/08/09 18:41:40 by grezette         ###   ########.fr       */
+/*   Updated: 2020/09/11 15:57:46 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	ft_tex_color(t_cub *cub, int t, int x)
 static void	ft_draw_columns(t_cub *cub, int x, int t)
 {
 	int		i;
-	
+
 	i = -1;
 	while (++i < cub->drawstart)
 		ft_draw_pixel(cub, cub->ceiling, x, i);
@@ -87,4 +87,24 @@ void		ft_raycaster(t_cub *cub)
 		cub->z_buffer[x] = cub->perpwalldist;
 	}
 	ft_sprite_casting(cub);
+}
+
+int			loop_hook(void *param)
+{
+	t_cub	*cub;
+	double	tmp_dirx;
+	double	tmp_planex;
+
+	cub = (t_cub *)param;
+	ft_raycaster(cub);
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->scr.img_ptr, 0, 0);
+	tmp_dirx = cub->dir.x;
+	tmp_planex = cub->plane.x;
+	ft_move_left_right(cub);
+	ft_move_forback(cub);
+	ft_cam_hook(cub, tmp_dirx, tmp_planex);
+	ft_swap(&cub->scr, &cub->scr_two);
+	if (cub->key[4])
+		ft_exit_error("No just kidding\n", NULL, cub, 0);
+	return (0);
 }

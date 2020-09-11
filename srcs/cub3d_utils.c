@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 15:01:14 by grezette          #+#    #+#             */
-/*   Updated: 2020/08/10 17:00:41 by grezette         ###   ########.fr       */
+/*   Updated: 2020/09/11 16:12:50 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,34 @@ int				ft_minimap_good_size(char **map)
 	return (height + i - ft_square_strlen(map));
 }
 
+void			ft_draw_header(t_cub *cub, int fd)
+{
+	int tmp;
+
+	write(fd, "BM", 2);
+	tmp = 14 + 40 + 4 * cub->reso.x * cub->reso.y;
+	write(fd, &tmp, 4);
+	tmp = 0;
+	write(fd, &tmp, 2);
+	write(fd, &tmp, 2);
+	tmp = 54;
+	write(fd, &tmp, 4);
+	tmp = 40;
+	write(fd, &tmp, 4);
+	write(fd, &cub->reso.x, 4);
+	write(fd, &cub->reso.y, 4);
+	tmp = 1;
+	write(fd, &tmp, 2);
+	write(fd, &cub->scr.bpp, 2);
+	tmp = 0;
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+}
+
 static void		ft_get_textures(t_cub *cub)
 {
 	if (!(cub->txtr[0].img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr,
@@ -84,24 +112,13 @@ static void		ft_get_textures(t_cub *cub)
 
 void			ft_minilibx_init(t_cub *cub)
 {
-	t_reso	size;
-
 	if (!(cub->mlx_ptr = mlx_init()))
 		ft_exit_error("mlx_init failed\n", NULL, cub, 0);
-	mlx_get_screen_size(cub->mlx_ptr, &size.x, &size.y);
-	cub->reso.x = (cub->reso.x > size.x) ? size.x : cub->reso.x;
-	cub->reso.y = (cub->reso.y > size.y) ? size.y : cub->reso.y;
 	if (!(cub->scr.img_ptr = mlx_new_image(cub->mlx_ptr,
 					cub->reso.x, cub->reso.y)))
 		ft_exit_error("mlx_new_image failed\n", NULL, cub, 0);
 	if (!(cub->scr.data = mlx_get_data_addr(cub->scr.img_ptr, &(cub->scr.bpp),
 					&(cub->scr.size_l), &(cub->scr.endian))))
-		ft_exit_error("mlx_get_data_addr failed\n", NULL, cub, 0);
-	if (!(cub->scr_two.img_ptr = mlx_new_image(cub->mlx_ptr,
-					cub->reso.x, cub->reso.y)))
-		ft_exit_error("mlx_new_image failed\n", NULL, cub, 0);
-	if (!(cub->scr_two.data = mlx_get_data_addr(cub->scr_two.img_ptr, &(cub->scr_two.bpp),
-					&(cub->scr_two.size_l), &(cub->scr_two.endian))))
 		ft_exit_error("mlx_get_data_addr failed\n", NULL, cub, 0);
 	cub->pos = ft_guess_start_position(cub->map);
 	ft_guess_start_direction(cub, cub->pos.x, cub->pos.y);
@@ -112,4 +129,8 @@ void			ft_minilibx_init(t_cub *cub)
 	if (!(cub->z_buffer = (double *)malloc(sizeof(double) * cub->reso.x)))
 		ft_exit_error("minilibx_init failed", NULL, cub, 0);
 	ft_get_textures(cub);
+	if (!(cub->scr_two.data = mlx_get_data_addr(cub->scr_two.img_ptr,
+					&(cub->scr_two.bpp), &(cub->scr_two.size_l),
+					&(cub->scr_two.endian))))
+		ft_exit_error("mlx_get_data_addr failed\n", NULL, cub, 0);
 }

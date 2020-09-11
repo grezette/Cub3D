@@ -6,13 +6,14 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 17:29:07 by grezette          #+#    #+#             */
-/*   Updated: 2020/07/20 17:56:43 by grezette         ###   ########.fr       */
+/*   Updated: 2020/09/11 15:57:12 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-static void	ft_cam_hook(t_cub *cub, double tmp_dirx, double tmp_planex)
+void
+	ft_cam_hook(t_cub *cub, double tmp_dirx, double tmp_planex)
 {
 	if (cub->key[5])
 	{
@@ -38,7 +39,8 @@ static void	ft_cam_hook(t_cub *cub, double tmp_dirx, double tmp_planex)
 	}
 }
 
-static void	ft_move_forback(t_cub *cub)
+void
+	ft_move_forback(t_cub *cub)
 {
 	if (cub->key[0])
 	{
@@ -60,7 +62,8 @@ static void	ft_move_forback(t_cub *cub)
 	}
 }
 
-static void	ft_move_left_right(t_cub *cub)
+void
+	ft_move_left_right(t_cub *cub)
 {
 	if (cub->key[2])
 	{
@@ -82,27 +85,8 @@ static void	ft_move_left_right(t_cub *cub)
 	}
 }
 
-int			loop_hook(void *param)
-{
-	t_cub *cub;
-	double	tmp_dirx;
-	double	tmp_planex;
-
-	cub = (t_cub *)param;
-	ft_raycaster(cub);
-	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->scr.img_ptr, 0, 0);
-	tmp_dirx = cub->dir.x;
-	tmp_planex = cub->plane.x;
-	ft_move_left_right(cub);
-	ft_move_forback(cub);
-	ft_cam_hook(cub, tmp_dirx, tmp_planex);
-	ft_swap(&cub->scr, &cub->scr_two);
-	if (cub->key[4])
-		ft_exit_error("No just kidding\n", NULL, cub, 0);
-	return (0);
-}
-
-int			key_hook_release(int keycode, void *param)
+int
+	key_hook_release(int keycode, void *param)
 {
 	t_cub *var;
 
@@ -124,7 +108,8 @@ int			key_hook_release(int keycode, void *param)
 	return (0);
 }
 
-int			key_hook_press(int keycode, void *param)
+int
+	key_hook_press(int keycode, void *param)
 {
 	t_cub *var;
 

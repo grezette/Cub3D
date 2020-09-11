@@ -6,7 +6,7 @@
 /*   By: grezette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/10 16:52:16 by grezette          #+#    #+#             */
-/*   Updated: 2020/08/10 17:02:24 by grezette         ###   ########.fr       */
+/*   Updated: 2020/09/11 16:04:49 by grezette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,14 @@ void		ft_guess_start_direction(t_cub *cub, int x, int y)
 
 void		ft_get_textures_2(t_cub *cub)
 {
+	t_reso	size;
+
+	mlx_get_screen_size(cub->mlx_ptr, &size.x, &size.y);
+	cub->reso.x = (cub->reso.x > size.x) ? size.x : cub->reso.x;
+	cub->reso.y = (cub->reso.y > size.y) ? size.y : cub->reso.y;
+	if (!(cub->scr_two.img_ptr = mlx_new_image(cub->mlx_ptr,
+					cub->reso.x, cub->reso.y)))
+		ft_exit_error("mlx_new_image failed\n", NULL, cub, 0);
 	if (!(cub->txtr[2].img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr,
 					cub->e_txtr, &((cub->txtr[2]).width),
 					&(cub->txtr[2].h))))
