@@ -69,7 +69,6 @@ static void	ft_pars_map2(t_cub *cub)
 
 	y = 0;
 	x = 0;
-	map = NULL;
 	if (!(map = ft_square_strjoin(cub->map, NULL)))
 		ft_exit_error("Square_strjoin failed", NULL, cub, 0);
 	while (map[y] && map[y][x] != 'N' && map[y][x] != 'W' && map[y][x] != 'E' &&
