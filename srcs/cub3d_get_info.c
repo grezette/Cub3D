@@ -96,14 +96,14 @@ void		ft_guess_start_direction(t_cub *cub, int x, int y)
 
 void		ft_get_textures_2(t_cub *cub)
 {
-	t_reso	size;
-
-	mlx_get_screen_size(cub->mlx_ptr, &size.x, &size.y);
-	cub->reso.x = (cub->reso.x > size.x) ? size.x : cub->reso.x;
-	cub->reso.y = (cub->reso.y > size.y) ? size.y : cub->reso.y;
 	if (!(cub->scr_two.img_ptr = mlx_new_image(cub->mlx_ptr,
 					cub->reso.x, cub->reso.y)))
 		ft_exit_error("mlx_new_image failed\n", NULL, cub, 0);
+	if (!(cub->scr_two.data = mlx_get_data_addr(cub->scr_two.img_ptr,
+					&(cub->scr_two.bpp),
+					&(cub->scr_two.size_l),
+					&(cub->scr_two.endian))))
+		ft_exit_error("mlx_get_data_addr failed\n", NULL, cub, 0);
 	if (!(cub->txtr[2].img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr,
 					cub->e_txtr, &((cub->txtr[2]).width),
 					&(cub->txtr[2].h))))

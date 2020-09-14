@@ -1,4 +1,4 @@
-R 1500                              1000
+R 15000000                            10000000000
 NO ./textures/wall_3.xpm
 SO                      ./textures/wall_3.xpm
 WE ./textures/wall_3.xpm
