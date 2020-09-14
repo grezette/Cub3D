@@ -20,7 +20,7 @@ char	**ft_square_strjoin(char **tab, char *str)
 	i = 0;
 	while (tab && tab[i])
 		i++;
-	if (!(ret = (char **)malloc(sizeof(char) * (i + 2))))
+	if (!(ret = (char **)malloc(sizeof(char *) * (i + 2))))
 		return (NULL);
 	i = -1;
 	while (tab && tab[++i])
