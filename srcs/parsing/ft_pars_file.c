@@ -14,22 +14,24 @@
 
 static int	ft_pars_color(t_color *color, char *line)
 {
-	if (color->red != -1)
+	if (color->blue != -1)
 		return (-1);
-	color->red = 0;
 	line++;
 	while ((*line > 9 && *line < 13) || *line == ' ')
 		line++;
-	while (*line && ft_isdigit(*line))
-		color->red = color->red * 10 + *line++ - '0';
+	if (ft_isdigit(*line) && !(color->red = 0))
+		while (*line && ft_isdigit(*line) && color->red < 1000)
+			color->red = color->red * 10 + *line++ - '0';
 	if (*line == ',')
 		line++;
-	while (*line && ft_isdigit(*line))
-		color->green = color->green * 10 + *line++ - '0';
+	if (ft_isdigit(*line) && !(color->green = 0))
+		while (*line && ft_isdigit(*line) && color->green < 1000)
+			color->green = color->green * 10 + *line++ - '0';
 	if (*line == ',')
 		line++;
-	while (*line && ft_isdigit(*line))
-		color->blue = color->blue * 10 + *line++ - '0';
+	if (ft_isdigit(*line) && !(color->blue = 0))
+		while (*line && ft_isdigit(*line) && color->green < 1000)
+			color->blue = color->blue * 10 + *line++ - '0';
 	while ((*line > 9 && *line < 13) || *line == ' ')
 		line++;
 	if (*line)
@@ -60,18 +62,22 @@ static int	ft_pars_txtr(char **path, char *line)
 static int	ft_pars_reso(t_cub *cub, char *line)
 {
 	line++;
-	if (cub->reso.x != -1)
+	if (cub->reso.y != -1)
 		return (-1);
 	cub->reso.x = 0;
-	cub->reso.y = 0;
 	while ((*line > 9 && *line < 13) || *line == ' ')
 		line++;
-	while (*line && ft_isdigit(*line))
+	while (*line && ft_isdigit(*line) && cub->reso.x < 100000)
 		cub->reso.x = cub->reso.x * 10 + *line++ - '0';
+	while (*line && ft_isdigit(*line))
+		line++;
 	while ((*line > 9 && *line < 13) || *line == ' ')
 		line++;
+	if (ft_isdigit(*line) && !(cub->reso.y = 0))
+		while (*line && ft_isdigit(*line) && cub->reso.y < 100000)
+			cub->reso.y = cub->reso.y * 10 + *line++ - '0';
 	while (*line && ft_isdigit(*line))
-		cub->reso.y = cub->reso.y * 10 + *line++ - '0';
+		line++;
 	while ((*line > 9 && *line < 13) || *line == ' ')
 		line++;
 	if (*line)
